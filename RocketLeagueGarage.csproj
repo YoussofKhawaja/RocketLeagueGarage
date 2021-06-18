@@ -9,7 +9,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove=".gitattributes" />
+	  <None Remove=".gitignore" />
 	  <None Remove="Assets\profile.ico" />
+	  <None Remove="LICENSE" />
+	  <None Remove="profile.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
