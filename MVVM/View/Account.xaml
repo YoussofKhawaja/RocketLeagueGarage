@@ -1,0 +1,105 @@
+﻿<UserControl
+    x:Class="RocketLeagueGarage.MVVM.View.Account"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:RocketLeagueGarage.MVVM.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:RocketLeagueGarage.MVVM.ViewModel"
+    d:DesignHeight="505"
+    d:DesignWidth="700"
+    mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <viewModel:AccountViewModel />
+    </UserControl.DataContext>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type StackPanel}">
+                    <Setter Property="Margin" Value="15,20" />
+                </Style>
+            </StackPanel.Resources>
+            <StackPanel>
+                <TextBlock
+                    FontSize="25"
+                    Foreground="White"
+                    Text="Name*" />
+                <Border
+                    Width="500"
+                    Height="45"
+                    Margin="15"
+                    HorizontalAlignment="Left"
+                    Background="#282828"
+                    BorderBrush="White"
+                    BorderThickness="0"
+                    CornerRadius="15">
+                    <TextBox
+                        Margin="15,0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        CaretBrush="White"
+                        FontSize="20"
+                        Foreground="White"
+                        Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </Border>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock
+                    FontSize="25"
+                    Foreground="White"
+                    Text="Email*" />
+                <Border
+                    Width="500"
+                    Height="45"
+                    Margin="15"
+                    HorizontalAlignment="Left"
+                    Background="#282828"
+                    BorderBrush="White"
+                    BorderThickness="0"
+                    CornerRadius="15">
+                    <TextBox
+                        Margin="15,0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        CaretBrush="White"
+                        FontFamily="Font/#Poppins"
+                        FontSize="20"
+                        Foreground="White"
+                        Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </Border>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock
+                    FontSize="25"
+                    Foreground="White"
+                    Text="Password*" />
+                <Border
+                    Width="500"
+                    Height="45"
+                    Margin="15"
+                    HorizontalAlignment="Left"
+                    Background="#282828"
+                    BorderBrush="White"
+                    BorderThickness="0"
+                    CornerRadius="15">
+                    <TextBox
+                        Margin="15,0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        CaretBrush="White"
+                        FontSize="20"
+                        Foreground="White"
+                        Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </Border>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

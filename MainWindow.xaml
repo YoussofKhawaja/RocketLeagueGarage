@@ -1,0 +1,100 @@
+﻿<Window
+    x:Class="RocketLeagueGarage.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:RocketLeagueGarage"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:RocketLeagueGarage.MVVM.ViewModel"
+    Width="1100"
+    Height="650"
+    AllowsTransparency="True"
+    Background="Transparent"
+    ResizeMode="NoResize"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <Window.DataContext>
+        <viewModel:MainViewModel />
+    </Window.DataContext>
+
+    <Border Background="#2d2d2d" CornerRadius="20">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Margin="20,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="22"
+                Foreground="White"
+                Text="RLGarage" />
+            <Grid
+                Grid.ColumnSpan="2"
+                Background="Transparent"
+                MouseMove="Window_MouseMove" />
+            <!--  OS System Window Buttons  -->
+            <StackPanel
+                Grid.Column="1"
+                Margin="0,0,10,0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <!--  Minimize  -->
+                <Button
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="{x:Null}"
+                    Click="MinimizeClicked"
+                    Foreground="White"
+                    Style="{StaticResource WindowButtonTheme}">
+                    <materialDesign:PackIcon
+                        Width="20"
+                        Height="20"
+                        Kind="WindowMinimize" />
+                </Button>
+                <!--  Exit  -->
+                <Button
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="{x:Null}"
+                    Click="ExitClicked"
+                    Foreground="White"
+                    Style="{StaticResource WindowButtonTheme}">
+                    <materialDesign:PackIcon
+                        Width="20"
+                        Height="20"
+                        Kind="Close" />
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <RadioButton
+                    Height="50"
+                    Command="{Binding HomeViewCommand}"
+                    Content="Home"
+                    FontSize="14"
+                    Foreground="White"
+                    IsChecked="True"
+                    Style="{StaticResource MenuButtonTheme}" />
+                <RadioButton
+                    Height="50"
+                    Command="{Binding AccountViewCommand}"
+                    Content="Account"
+                    FontSize="14"
+                    Foreground="White"
+                    Style="{StaticResource MenuButtonTheme}" />
+            </StackPanel>
+            <ContentControl
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="10"
+                Content="{Binding CurrentView}" />
+        </Grid>
+    </Border>
+</Window>
