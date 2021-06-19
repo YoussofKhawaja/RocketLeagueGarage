@@ -111,9 +111,6 @@ namespace RocketLeagueGarage.MVVM.View
                     });
                 };
 
-                // show messageBox on timer = 00:00.000
-                timer.CountDownFinished += () => MessageBox.Show("Timer finished the work!");
-
                 //timer step. By default is 1 second
                 timer.StepMs = 77; // for nice milliseconds time switch
             }
@@ -312,6 +309,8 @@ namespace RocketLeagueGarage.MVVM.View
                                     }
                                 });
 
+                                Thread.Sleep(1000);
+
                                 this.Dispatcher.Invoke(() =>
                                 {
                                     onoff.Content = RocketData.OnOff = "Waiting";
@@ -381,6 +380,7 @@ namespace RocketLeagueGarage.MVVM.View
                     statusTime.Start();
                     timerr();
                     timer.Start();
+                    timer.IsRunnign = true;
                     if (timer.TimeLeftMsStr == "00:00.000" && Process.GetProcesses().Count(p => p.ProcessName == "chromedriver") == 0)
                     {
                         done = false;
@@ -407,7 +407,7 @@ namespace RocketLeagueGarage.MVVM.View
         {
             try
             {
-                if (Process.GetProcesses().Count(p => p.ProcessName == "chromedriver") == 0 && whatdoing.Text != "starting" && whatdoing.Text != "Running after timer done!")
+                if (Process.GetProcesses().Count(p => p.ProcessName == "chromedriver") == 0 && whatdoing.Text != "starting" && whatdoing.Text != "Running after timer done!" && whatdoing.Text != "Download done" && timer.IsRunnign == false)
                 {
                     timelabel.Text = RocketData.TimeLabel = "Not Running, No Bump :(";
 
