@@ -9,8 +9,10 @@ namespace RocketLeagueGarage.MVVM.Model
     [Serializable]
     public class RocketData
     {
-        public string WhatDoing { get; set; }
-        public string OnOff { get; set; }
-        public string TimeLabel { get; set; }
+        public static string WhatDoing { get; set; }
+
+        public static string OnOff { get; set; }
+
+        public static string TimeLabel { get; set; }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using RocketLeagueGarage.MVVM.View;
 using System.Windows;
 
 namespace RocketLeagueGarage
@@ -13,5 +8,12 @@ namespace RocketLeagueGarage
     /// </summary>
     public partial class App : Application
     {
+        public static MainWindow mainWindow;
+
+        public void ApplicationStart(object sender, StartupEventArgs e)
+        {
+            mainWindow = new MainWindow();
+            mainWindow.Show();
+        }
     }
 }

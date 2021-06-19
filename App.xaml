@@ -5,7 +5,7 @@
     xmlns:local="clr-namespace:RocketLeagueGarage"
     xmlns:view="clr-namespace:RocketLeagueGarage.MVVM.View"
     xmlns:viewModel="clr-namespace:RocketLeagueGarage.MVVM.ViewModel"
-    StartupUri="MainWindow.xaml">
+    Startup="ApplicationStart">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -41,12 +41,38 @@ namespace RocketLeagueGarage.MVVM.View
         private ChromeDriver driver;
         private CountDownTimer timer = new CountDownTimer();
         private System.Timers.Timer statusTime = new System.Timers.Timer();
+        private System.Timers.Timer statusTime2 = new System.Timers.Timer();
 
         public HomeView()
         {
             InitializeComponent();
             check();
             startStatusBarTimer();
+            startStatusBarTimer2();
+        }
+
+        //timer
+        private void startStatusBarTimer2()
+        {
+            try
+            {
+                statusTime2.Interval = 1;
+                statusTime2.Elapsed += new System.Timers.ElapsedEventHandler(text);
+                statusTime2.Enabled = true;
+            }
+            catch
+            {
+            }
+        }
+
+        private void text(object sender, ElapsedEventArgs e)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                whatdoing.Text = RocketData.WhatDoing;
+                onoff.Content = RocketData.OnOff;
+                timelabel.Text = RocketData.TimeLabel;
+            });
         }
 
         //timer
@@ -75,7 +101,7 @@ namespace RocketLeagueGarage.MVVM.View
                 {
                     this.Dispatcher.Invoke(() =>
                     {
-                        timelabel.Text = timer.TimeLeftMsStr + " " + "Minute";
+                        timelabel.Text = RocketData.TimeLabel = timer.TimeLeftMsStr + " " + "Minute";
                     });
                 };
 
@@ -94,7 +120,7 @@ namespace RocketLeagueGarage.MVVM.View
         {
             if (whatdoing.Text == "Downloading ChromeDriver")
             {
-                onoff.Content = "Wait For download";
+                onoff.Content = RocketData.OnOff = "Wait For download";
                 return;
             }
             try
@@ -111,8 +137,8 @@ namespace RocketLeagueGarage.MVVM.View
                                 statusTime.Enabled = true;
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    whatdoing.Text = "starting";
-                                    onoff.Content = "Running";
+                                    whatdoing.Text = RocketData.WhatDoing = "starting";
+                                    onoff.Content = RocketData.OnOff = "Running";
                                     icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop;
                                 });
                                 button1WasClicked = true;
@@ -131,49 +157,49 @@ namespace RocketLeagueGarage.MVVM.View
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    whatdoing.Text = "Started";
-                                    onoff.Content = "Running";
+                                    whatdoing.Text = RocketData.WhatDoing = "Started";
+                                    onoff.Content = RocketData.OnOff = "Running";
                                     icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop;
                                 });
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    whatdoing.Text = "Accepting PrivacyPolicy ";
+                                    whatdoing.Text = RocketData.WhatDoing = "Accepting PrivacyPolicy ";
                                 });
 
                                 driver.FindElement(By.CssSelector("#acceptPrivacyPolicy")).Click();
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    whatdoing.Text = "Accepted PrivacyPolicy";
+                                    whatdoing.Text = RocketData.WhatDoing = "Accepted PrivacyPolicy";
                                 });
                                 Thread.Sleep(1000);
                                 IWebElement email = driver.FindElement(By.CssSelector("#header-email"));
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    whatdoing.Text = "Entering Email address";
+                                    whatdoing.Text = RocketData.WhatDoing = "Entering Email address";
                                 });
                                 Thread.Sleep(1000);
                                 email.SendKeys(user.Email);
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    whatdoing.Text = "Email address entered";
+                                    whatdoing.Text = RocketData.WhatDoing = "Email address entered";
                                 });
                                 Thread.Sleep(1000);
                                 IWebElement password = driver.FindElement(By.CssSelector("#header-password"));
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    whatdoing.Text = "Entering Password";
+                                    whatdoing.Text = RocketData.WhatDoing = "Entering Password";
                                 });
                                 Thread.Sleep(1000);
                                 password.SendKeys(user.Password);
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    whatdoing.Text = "Password entered";
+                                    whatdoing.Text = RocketData.WhatDoing = "Password entered";
                                 });
                                 Thread.Sleep(1000);
 
@@ -192,8 +218,8 @@ namespace RocketLeagueGarage.MVVM.View
                                 {
                                     this.Dispatcher.Invoke(() =>
                                     {
-                                        whatdoing.Text = "Your email or password were not recognised";
-                                        onoff.Content = "Not Running";
+                                        whatdoing.Text = RocketData.WhatDoing = "Your email or password were not recognised";
+                                        RocketData.OnOff = "Not Running";
                                         icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
                                     });
 
@@ -203,25 +229,25 @@ namespace RocketLeagueGarage.MVVM.View
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    whatdoing.Text = "Login Button pressed";
+                                    whatdoing.Text = RocketData.WhatDoing = "Login Button pressed";
                                 });
                                 Thread.Sleep(1000);
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    whatdoing.Text = "Logged in";
+                                    whatdoing.Text = RocketData.WhatDoing = "Logged in";
                                 });
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    whatdoing.Text = "Decline notificationperms";
+                                    whatdoing.Text = RocketData.WhatDoing = "Decline notificationperms";
                                 });
                                 IWebElement notificationperms = driver.FindElement(By.ClassName("rlg-notificationperms__decline"));
                                 notificationperms.Click();
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    whatdoing.Text = "Declined";
+                                    whatdoing.Text = RocketData.WhatDoing = "Declined";
                                 });
 
                                 Thread.Sleep(1000);
@@ -231,7 +257,7 @@ namespace RocketLeagueGarage.MVVM.View
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    whatdoing.Text = "Going to trades";
+                                    whatdoing.Text = RocketData.WhatDoing = "Going to trades";
                                 });
 
                                 Thread.Sleep(1000);
@@ -253,11 +279,11 @@ namespace RocketLeagueGarage.MVVM.View
                                     {
                                         if (ErrorMaybe.Contains("ERROR"))
                                         {
-                                            whatdoing.Text = ErrorMaybe + " " + "Trade List" + " " + i;
+                                            whatdoing.Text = RocketData.WhatDoing = ErrorMaybe + " " + "Trade List" + " " + i;
                                         }
                                         else
                                         {
-                                            whatdoing.Text = $"Trade {i} Bumped!";
+                                            whatdoing.Text = RocketData.WhatDoing = $"Trade {i} Bumped!";
                                         }
                                     });
 
@@ -272,17 +298,17 @@ namespace RocketLeagueGarage.MVVM.View
                                 {
                                     if (ErrorMaybe.Contains("ERROR"))
                                     {
-                                        whatdoing.Text = $"Bump For All the Trades {i} Not Done!";
+                                        whatdoing.Text = RocketData.WhatDoing = $"Bump For All the Trades {i} Not Done!";
                                     }
                                     else
                                     {
-                                        whatdoing.Text = $"Bump For All the Trades {i} Done!";
+                                        whatdoing.Text = RocketData.WhatDoing = $"Bump For All the Trades {i} Done!";
                                     }
                                 });
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    onoff.Content = "Running after timer done!";
+                                    onoff.Content = RocketData.OnOff = "Running after timer done!";
                                     icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
                                 });
 
@@ -293,8 +319,8 @@ namespace RocketLeagueGarage.MVVM.View
                             {
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    whatdoing.Text = "Stopped";
-                                    onoff.Content = "Not Running";
+                                    whatdoing.Text = RocketData.WhatDoing = "Stopped";
+                                    onoff.Content = RocketData.OnOff = "Not Running";
                                     icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
                                 });
 
@@ -313,7 +339,7 @@ namespace RocketLeagueGarage.MVVM.View
                         }
                         catch
                         {
-                            whatdoing.Text = "Check internet connection and try again";
+                            whatdoing.Text = RocketData.WhatDoing = "Check internet connection and try again";
                             driver.Quit();
                             return;
                         }
@@ -330,7 +356,7 @@ namespace RocketLeagueGarage.MVVM.View
             }
             catch
             {
-                whatdoing.Text = "Check internet connection and try again";
+                whatdoing.Text = RocketData.WhatDoing = "Check internet connection and try again";
                 if (driver != null)
                 {
                     driver.Quit();
@@ -374,23 +400,18 @@ namespace RocketLeagueGarage.MVVM.View
         {
             try
             {
-                timelabel.Text = timer.TimeLeftMsStr + " " + "Minute";
-                whatdoing.Text = "Downloading ChromeDriver";
-                timelabel.Text = "Not Running";
-
-                await Task.Run(() => new DriverManager().SetUpDriver(new ChromeConfig()));
-
-                if (Process.GetProcesses().Count(p => p.ProcessName == "chromedriver") == 1)
+                if (Process.GetProcesses().Count(p => p.ProcessName == "chromedriver") == 0)
                 {
-                    whatdoing.Text = "Started";
-                    onoff.Content = "Running";
-                    icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop;
+                    timelabel.Text = RocketData.TimeLabel = "Not Running, No Bump :(";
+
+                    whatdoing.Text = RocketData.WhatDoing = "Downloading ChromeDriver";
+                    await Task.Run(() => new DriverManager().SetUpDriver(new ChromeConfig()));
+                    whatdoing.Text = RocketData.WhatDoing = "Download done";
+                    onoff.Content = RocketData.OnOff = "Not Running";
                 }
-                else if (Process.GetProcesses().Count(p => p.ProcessName == "chromedriver") == 0)
+                else
                 {
-                    timelabel.Text = "Not Running, No Bump :(";
-                    whatdoing.Text = "Doing Nothing";
-                    onoff.Content = "Not Running";
+                    icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop;
                 }
             }
             catch
@@ -400,8 +421,8 @@ namespace RocketLeagueGarage.MVVM.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            whatdoing.Text = "Restarting";
-            onoff.Content = "Not Running";
+            RocketData.WhatDoing = "Restarting";
+            RocketData.OnOff = "Not Running";
             if (driver != null)
             {
                 driver.Quit();
