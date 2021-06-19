@@ -38,14 +38,15 @@
                         <StackPanel>
                             <TextBlock
                                 Margin="20,10,10,0"
-                                HorizontalAlignment="Center"
+                                HorizontalAlignment="Left"
                                 FontSize="28"
                                 Foreground="White"
                                 Text="What I'am doing right now" />
                             <TextBlock
                                 x:Name="whatdoing"
                                 MaxWidth="420"
-                                Margin="10,0,0,0"
+                                Margin="20,10,10,0"
+                                HorizontalAlignment="Left"
                                 FontSize="30"
                                 Foreground="Gold"
                                 TextWrapping="WrapWithOverflow" />
@@ -69,14 +70,15 @@
                         <StackPanel>
                             <TextBlock
                                 Margin="20,10,10,0"
-                                HorizontalAlignment="Center"
+                                HorizontalAlignment="Left"
                                 FontSize="28"
                                 Foreground="White"
                                 Text="Next Bump For All Trades" />
                             <TextBlock
                                 x:Name="timelabel"
                                 MaxWidth="420"
-                                Margin="10,0,0,0"
+                                Margin="20,10,10,0"
+                                HorizontalAlignment="Left"
                                 FontSize="30"
                                 Foreground="Gold"
                                 TextWrapping="WrapWithOverflow" />
@@ -101,11 +103,11 @@
                     CornerRadius="10">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Offset="0.0" Color="#141414" />
-                            <GradientStop Offset="1" Color="#0f0f0f" />
+                            <GradientStop x:Name="buttonplay" Offset="0.0" Color="#141414" />
+                            <GradientStop x:Name="buttonplay2" Offset="1" Color="#0f0f0f" />
                         </LinearGradientBrush>
                     </Border.Background>
-                    <Grid>
+                    <Grid MouseEnter="onoffbutton_MouseEnter" MouseLeave="Grid_MouseLeave">
                         <materialDesign:PackIcon
                             x:Name="icon"
                             Width="120"
@@ -137,11 +139,11 @@
                     CornerRadius="10">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Offset="0.0" Color="#141414" />
-                            <GradientStop Offset="1" Color="#0f0f0f" />
+                            <GradientStop x:Name="button3" Offset="0.0" Color="#141414" />
+                            <GradientStop x:Name="button4" Offset="1" Color="#0f0f0f" />
                         </LinearGradientBrush>
                     </Border.Background>
-                    <Grid>
+                    <Grid MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave_1">
                         <materialDesign:PackIcon
                             Width="120"
                             Height="120"

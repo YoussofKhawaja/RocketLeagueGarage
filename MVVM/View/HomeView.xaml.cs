@@ -70,8 +70,6 @@ namespace RocketLeagueGarage.MVVM.View
                 //set to 30 mins
                 timer.SetTime(20, 0);
 
-                timer.Start();
-
                 //update label text
                 timer.TimeChanged += () =>
                 {
@@ -333,8 +331,11 @@ namespace RocketLeagueGarage.MVVM.View
             catch
             {
                 whatdoing.Text = "Check internet connection and try again";
-                driver.Quit();
-                return;
+                if (driver != null)
+                {
+                    driver.Quit();
+                    return;
+                }
             }
         }
 
@@ -346,6 +347,7 @@ namespace RocketLeagueGarage.MVVM.View
                 {
                     statusTime.Start();
                     timerr();
+                    timer.Start();
                     if (timer.TimeLeftMsStr == "00:00.000" && Process.GetProcesses().Count(p => p.ProcessName == "chromedriver") == 0)
                     {
                         done = false;
@@ -372,20 +374,7 @@ namespace RocketLeagueGarage.MVVM.View
         {
             try
             {
-                //user = Save.ReadFromXmlFile<AccountDataModel>("data", "account");
-                //if (user.Email != null && user.Password != null && user.Name != null)
-                //{
-                //    txtname.IsReadOnly = true;
-                //    txtemail.IsReadOnly = true;
-                //    txtpassword.IsReadOnly = true;
-                //    buttonpasswors.Visibility = Visibility.Collapsed;
-                //    passwordcheck.Visibility = Visibility.Collapsed;
-
-                //    txtemail.Text = user.email;
-                //    txtname.Text = user.name;
-                //    txtpassword.Text = new string('*', user.password.Length);
-                //}
-
+                timelabel.Text = timer.TimeLeftMsStr + " " + "Minute";
                 whatdoing.Text = "Downloading ChromeDriver";
                 timelabel.Text = "Not Running";
 
@@ -393,9 +382,9 @@ namespace RocketLeagueGarage.MVVM.View
 
                 if (Process.GetProcesses().Count(p => p.ProcessName == "chromedriver") == 1)
                 {
-                    timelabel.Text = "Time for next bump starting!";
-                    whatdoing.Text = "starting";
+                    whatdoing.Text = "Started";
                     onoff.Content = "Running";
+                    icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop;
                 }
                 else if (Process.GetProcesses().Count(p => p.ProcessName == "chromedriver") == 0)
                 {
@@ -411,6 +400,46 @@ namespace RocketLeagueGarage.MVVM.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            whatdoing.Text = "Restarting";
+            onoff.Content = "Not Running";
+            if (driver != null)
+            {
+                driver.Quit();
+            }
+
+            onoffbutton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+        }
+
+        private void onoffbutton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var color = (Color)ColorConverter.ConvertFromString("#0e0e0e");
+            buttonplay.Color = color;
+            buttonplay2.Color = color;
+            buttonplay2.Offset = 0.0;
+        }
+
+        private void Grid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var color = (Color)ColorConverter.ConvertFromString("#141414");
+            buttonplay.Color = color;
+            buttonplay2.Color = color;
+            buttonplay2.Offset = 1;
+        }
+
+        private void Grid_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var color = (Color)ColorConverter.ConvertFromString("#0e0e0e");
+            button3.Color = color;
+            button4.Color = color;
+            button4.Offset = 0.0;
+        }
+
+        private void Grid_MouseLeave_1(object sender, MouseEventArgs e)
+        {
+            var color = (Color)ColorConverter.ConvertFromString("#141414");
+            button3.Color = color;
+            button4.Color = color;
+            button4.Offset = 1;
         }
     }
 }
