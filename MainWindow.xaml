@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:RocketLeagueGarage.MVVM.ViewModel"
     Width="1100"
-    Height="650"
+    Height="680"
     AllowsTransparency="True"
     Background="Transparent"
     ResizeMode="NoResize"

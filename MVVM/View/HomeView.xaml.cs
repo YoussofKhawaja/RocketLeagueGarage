@@ -67,12 +67,18 @@ namespace RocketLeagueGarage.MVVM.View
 
         private void text(object sender, ElapsedEventArgs e)
         {
-            this.Dispatcher.Invoke(() =>
+            try
             {
-                whatdoing.Text = RocketData.WhatDoing;
-                onoff.Content = RocketData.OnOff;
-                timelabel.Text = RocketData.TimeLabel;
-            });
+                this.Dispatcher.Invoke(() =>
+                {
+                    whatdoing.Text = RocketData.WhatDoing;
+                    onoff.Content = RocketData.OnOff;
+                    timelabel.Text = RocketData.TimeLabel;
+                });
+            }
+            catch
+            {
+            }
         }
 
         //timer
@@ -308,7 +314,8 @@ namespace RocketLeagueGarage.MVVM.View
 
                                 this.Dispatcher.Invoke(() =>
                                 {
-                                    onoff.Content = RocketData.OnOff = "Running after timer done!";
+                                    onoff.Content = RocketData.OnOff = "Waiting";
+                                    whatdoing.Text = RocketData.WhatDoing = "Running after timer done!";
                                     icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
                                 });
 
@@ -400,7 +407,7 @@ namespace RocketLeagueGarage.MVVM.View
         {
             try
             {
-                if (Process.GetProcesses().Count(p => p.ProcessName == "chromedriver") == 0)
+                if (Process.GetProcesses().Count(p => p.ProcessName == "chromedriver") == 0 && whatdoing.Text != "starting" && whatdoing.Text != "Running after timer done!")
                 {
                     timelabel.Text = RocketData.TimeLabel = "Not Running, No Bump :(";
 
