@@ -1,5 +1,11 @@
-﻿using RocketLeagueGarage.MVVM.View;
+﻿using RocketLeagueGarage.MVVM.Model;
+using RocketLeagueGarage.MVVM.View;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
+using WebDriverManager;
+using WebDriverManager.DriverConfigs.Impl;
 
 namespace RocketLeagueGarage
 {
@@ -14,6 +20,14 @@ namespace RocketLeagueGarage
         {
             mainWindow = new MainWindow();
             mainWindow.Show();
+            check();
+        }
+
+        private void check()
+        {
+            RocketData.WhatDoing = "Doing Nothing, Not Running";
+            RocketData.OnOff = "Not Running";
+            RocketData.TimeLabel = "Run It To Know!";
         }
     }
 }

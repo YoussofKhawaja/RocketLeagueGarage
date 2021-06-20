@@ -53,8 +53,7 @@
                     Background="Transparent"
                     BorderBrush="{x:Null}"
                     Click="MinimizeClicked"
-                    Foreground="White"
-                    Style="{StaticResource WindowButtonTheme}">
+                    Foreground="White">
                     <materialDesign:PackIcon
                         Width="20"
                         Height="20"
@@ -66,8 +65,7 @@
                     Background="Transparent"
                     BorderBrush="{x:Null}"
                     Click="ExitClicked"
-                    Foreground="White"
-                    Style="{StaticResource WindowButtonTheme}">
+                    Foreground="White">
                     <materialDesign:PackIcon
                         Width="20"
                         Height="20"

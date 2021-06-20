@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:RocketLeagueGarage.MVVM.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:notifications="clr-namespace:Notifications.Wpf.Core.Controls;assembly=Notifications.Wpf.Core"
     d:DesignHeight="600"
     d:DesignWidth="900"
     mc:Ignorable="d">
@@ -103,7 +104,7 @@
                     CornerRadius="10">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop x:Name="buttonplay" Offset="0.0" Color="#141414" />
+                            <GradientStop x:Name="buttonplay" Offset="0.0" Color="White" />
                             <GradientStop x:Name="buttonplay2" Offset="1" Color="#0f0f0f" />
                         </LinearGradientBrush>
                     </Border.Background>
@@ -118,12 +119,10 @@
                             Kind="Play" />
                         <Button
                             x:Name="onoffbutton"
-                            Width="120"
-                            Height="120"
+                            Height="200"
                             Background="Transparent"
                             BorderBrush="Transparent"
-                            Click="Button_Click"
-                            Style="{StaticResource WindowButtonTheme}" />
+                            Click="onoffbutton_Click" />
                         <Label
                             x:Name="onoff"
                             VerticalAlignment="Bottom"
@@ -132,35 +131,12 @@
                             Foreground="White" />
                     </Grid>
                 </Border>
-                <Border
-                    Width="200"
-                    Height="200"
-                    Margin="45,0,0,0"
-                    CornerRadius="10">
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop x:Name="button3" Offset="0.0" Color="#141414" />
-                            <GradientStop x:Name="button4" Offset="1" Color="#0f0f0f" />
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <Grid MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave_1">
-                        <materialDesign:PackIcon
-                            Width="120"
-                            Height="120"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Foreground="White"
-                            Kind="Restart" />
-                        <Button
-                            Width="120"
-                            Height="120"
-                            Background="Transparent"
-                            BorderBrush="Transparent"
-                            Click="Button_Click_1"
-                            Style="{StaticResource WindowButtonTheme}" />
-                    </Grid>
-                </Border>
+
             </StackPanel>
         </StackPanel>
+        <notifications:NotificationArea
+            x:Name="WindowArea"
+            MaxItems="1"
+            Position="TopLeft" />
     </StackPanel>
 </UserControl>
