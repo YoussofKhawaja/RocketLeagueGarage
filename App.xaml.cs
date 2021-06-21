@@ -28,6 +28,7 @@ namespace RocketLeagueGarage
             RocketData.WhatDoing = "Doing Nothing, Not Running";
             RocketData.OnOff = "Not Running";
             RocketData.TimeLabel = "Run It To Know!";
+            RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
         }
     }
 }
