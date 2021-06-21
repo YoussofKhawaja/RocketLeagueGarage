@@ -1,30 +1,18 @@
-﻿using Notifications.Wpf.Core;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using RocketLeagueGarage.FilesManager;
 using RocketLeagueGarage.Helper;
 using RocketLeagueGarage.MVVM.Model;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
-using WebDriverManager.Helpers;
 
 namespace RocketLeagueGarage.MVVM.View
 {
@@ -40,6 +28,8 @@ namespace RocketLeagueGarage.MVVM.View
         #region bools
 
         private static bool IsRunning = false;
+        private static bool starting = false;
+        private static bool done = false;
 
         #endregion bools
 
@@ -69,10 +59,10 @@ namespace RocketLeagueGarage.MVVM.View
 
         private async void onoffbutton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsRunning == false)
+            if (IsRunning == false && starting == false)
             {
-                RocketData.OnOff = "Running";
-                icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop;
+                Debug.WriteLine("here1");
+                starting = true;
 
                 await Task.Run(ChromeDriver);
 
@@ -82,13 +72,15 @@ namespace RocketLeagueGarage.MVVM.View
 
                 IsRunning = false;
 
-                RocketData.OnOff = "Not Running";
-                icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
-
-                timer.Start();
+                if (done == true)
+                {
+                    timer.Start();
+                }
             }
             else if (IsRunning == true)
             {
+                Debug.WriteLine("here2");
+
                 await Task.Run(ChromeDriverQuit);
             }
         }
@@ -134,25 +126,20 @@ namespace RocketLeagueGarage.MVVM.View
                 whatdoing.Text = RocketData.WhatDoing;
                 onoff.Content = RocketData.OnOff;
                 timelabel.Text = RocketData.TimeLabel;
-
-                if (IsRunning == false)
-                {
-                    icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
-                }
-                else
-                {
-                    icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop;
-                }
+                icon.Kind = RocketData.Kind;
             });
         }
 
-        private async void ChromeDriver()
+        private void ChromeDriver()
         {
+            RocketData.OnOff = "Running";
+            RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop;
+
             user = Save.ReadFromXmlFile<AccountDataModel>("Data", "Account");
 
             RocketData.WhatDoing = "Setting Up ChromeDrive";
 
-            await Task.Delay(1000);
+            Thread.Sleep(1000);
 
             new DriverManager().SetUpDriver(new ChromeConfig());
             RocketData.WhatDoing = "Setting Up Done, Starting Up ChromeDriver";
@@ -171,72 +158,81 @@ namespace RocketLeagueGarage.MVVM.View
             RocketData.WhatDoing = "Started ChromeDriver";
         }
 
-        private async void Element()
+        private void Element()
         {
-            driver.FindElement(By.CssSelector("#acceptPrivacyPolicy")).Click();
-
-            IWebElement email = driver.FindElement(By.CssSelector("#header-email"));
-            email.SendKeys(user.Email);
-            RocketData.WhatDoing = "Email Entered";
-
-            await Task.Delay(1000);
-
-            IWebElement password = driver.FindElement(By.CssSelector("#header-password"));
-            password.SendKeys(user.Password);
-            RocketData.WhatDoing = "Password Entered";
-
-            await Task.Delay(1000);
-
-            password.SendKeys(Keys.Enter);
-            RocketData.WhatDoing = "Login Button Clicked";
-
-            await Task.Delay(1000);
-
-            IWebElement eror = driver.FindElement(By.ClassName("rlg-site-popup__container"));
-            string error = eror.Text;
-
-            if (error.Contains("ERROR"))
+            try
             {
-                RocketData.WhatDoing = "Your email or password were not recognised";
+                driver.FindElement(By.CssSelector("#acceptPrivacyPolicy")).Click();
+
+                IWebElement email = driver.FindElement(By.CssSelector("#header-email"));
+                email.SendKeys(user.Email);
+                RocketData.WhatDoing = "Email Entered";
+
+                Thread.Sleep(1000);
+
+                IWebElement password = driver.FindElement(By.CssSelector("#header-password"));
+                password.SendKeys(user.Password);
+                RocketData.WhatDoing = "Password Entered";
+
+                Thread.Sleep(1000);
+
+                password.SendKeys(Keys.Enter);
+                RocketData.WhatDoing = "Login Button Clicked";
+
+                Thread.Sleep(1000);
+
+                IWebElement eror = driver.FindElement(By.ClassName("rlg-site-popup__container"));
+                string error = eror.Text;
+
+                if (error.Contains("ERROR"))
+                {
+                    RocketData.WhatDoing = "Your email or password were not recognised";
+
+                    driver.Quit();
+
+                    return;
+                }
+                else
+                {
+                    IWebElement notificationperms = driver.FindElement(By.ClassName("rlg-notificationperms__decline"));
+                    notificationperms.Click();
+                    RocketData.WhatDoing = "Disable Notification";
+
+                    Thread.Sleep(1000);
+
+                    var trades = driver.FindElementsByClassName("rlg-trade__bump");
+                    var closeup = driver.FindElement(By.ClassName("rlg-site-popup__container"));
+
+                    int i = 0;
+                    foreach (var trade in trades)
+                    {
+                        trade.Click();
+                        RocketData.WhatDoing = $"Trade {i} Bumped";
+
+                        Thread.Sleep(1000);
+
+                        closeup.Click();
+
+                        i++;
+                    }
+                    RocketData.WhatDoing = $"Trade Bump for {trades.Count} Done";
+                }
 
                 driver.Quit();
-
-                return;
+                done = true;
+                RocketData.OnOff = "Not Running";
+                RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
             }
-            else
+            catch
             {
-                IWebElement notificationperms = driver.FindElement(By.ClassName("rlg-notificationperms__decline"));
-                notificationperms.Click();
-                RocketData.WhatDoing = "Disable Notification";
-
-                await Task.Delay(1000);
-
-                var trades = driver.FindElementsByClassName("rlg-trade__bump");
-                var closeup = driver.FindElement(By.ClassName("rlg-site-popup__container"));
-
-                int i = 0;
-                foreach (var trade in trades)
-                {
-                    trade.Click();
-                    RocketData.WhatDoing = $"Trade {i} Bumped";
-
-                    await Task.Delay(1000);
-
-                    closeup.Click();
-
-                    i++;
-                }
-                RocketData.WhatDoing = $"Trade Bump for {trades.Count} Done";
             }
-
-            driver.Quit();
         }
 
         private void ChromeDriverQuit()
         {
             driver.Quit();
             RocketData.OnOff = "Not Running";
-            icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
+            RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
             RocketData.WhatDoing = "Stopped";
         }
 

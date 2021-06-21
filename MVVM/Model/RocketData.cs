@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,7 @@ namespace RocketLeagueGarage.MVVM.Model
         public static string OnOff { get; set; }
 
         public static string TimeLabel { get; set; }
+
+        public static PackIconKind Kind { get; set; }
     }
 }
