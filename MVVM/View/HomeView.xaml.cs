@@ -221,6 +221,10 @@ namespace RocketLeagueGarage.MVVM.View
                         i++;
                     }
                     RocketData.WhatDoing = $"Trade Bump for {trades.Count} Done";
+
+                    Thread.Sleep(1000);
+
+                    RocketData.WhatDoing = "Login Button Clicked";
                 }
 
                 driver.Quit();

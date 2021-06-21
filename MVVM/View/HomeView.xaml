@@ -7,9 +7,16 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:notifications="clr-namespace:Notifications.Wpf.Core.Controls;assembly=Notifications.Wpf.Core"
+    xmlns:viewModel="clr-namespace:RocketLeagueGarage.MVVM.ViewModel"
     d:DesignHeight="600"
     d:DesignWidth="900"
     mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <viewModel:HomeViewModel />
+    </UserControl.DataContext>
+
+
     <StackPanel>
         <Grid VerticalAlignment="Top">
             <notifications:NotificationArea

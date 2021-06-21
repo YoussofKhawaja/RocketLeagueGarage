@@ -26,6 +26,10 @@
                 <view:Account />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:HistoryLogsViewModel}">
+                <view:HistoryLogsView />
+            </DataTemplate>
+
 
         </ResourceDictionary>
     </Application.Resources>

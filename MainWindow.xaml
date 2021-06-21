@@ -83,6 +83,13 @@
                     Style="{StaticResource MenuButtonTheme}" />
                 <RadioButton
                     Height="50"
+                    Command="{Binding HistoryLogsViewCommand}"
+                    Content="HistoryLogs"
+                    FontSize="14"
+                    Foreground="White"
+                    Style="{StaticResource MenuButtonTheme}" />
+                <RadioButton
+                    Height="50"
                     Command="{Binding AccountViewCommand}"
                     Content="Account"
                     FontSize="14"
