@@ -15,77 +15,38 @@
     </UserControl.DataContext>
 
     <Grid>
-        <ScrollViewer>
-            <StackPanel>
-                <Label
-                    HorizontalContentAlignment="Center"
-                    Content="History Of What Happened"
-                    FontSize="30"
-                    Foreground="White" />
-
-                <ListView x:Name="ListView" Margin="10">
-                    <ListViewItem Margin="0,0,0,10" Background="#2d2d2d">
-                        <Label
-                            Content="test"
+        <StackPanel>
+            <Label
+                HorizontalContentAlignment="Center"
+                Content="History Of What Happened"
+                FontSize="30"
+                Foreground="White" />
+            <ListView ItemsSource="{Binding History}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Focusable" Value="false" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{x:Null}" />
+                                <Setter Property="BorderBrush" Value="{x:Null}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock
                             FontSize="20"
-                            Foreground="Gold" />
-                    </ListViewItem>
-                    <ListViewItem Margin="0,0,0,10" Background="#2d2d2d">
-                        <Label
-                            Content="test"
-                            FontSize="20"
-                            Foreground="Gold" />
-                    </ListViewItem>
-                    <ListViewItem Margin="0,0,0,10" Background="#2d2d2d">
-                        <Label
-                            Content="test"
-                            FontSize="20"
-                            Foreground="Gold" />
-                    </ListViewItem>
-                    <ListViewItem Margin="0,0,0,10" Background="#2d2d2d">
-                        <Label
-                            Content="test"
-                            FontSize="20"
-                            Foreground="Gold" />
-                    </ListViewItem>
-                    <ListViewItem Margin="0,0,0,10" Background="#2d2d2d">
-                        <Label
-                            Content="test"
-                            FontSize="20"
-                            Foreground="Gold" />
-                    </ListViewItem>
-                    <ListViewItem Margin="0,0,0,10" Background="#2d2d2d">
-                        <Label
-                            Content="test"
-                            FontSize="20"
-                            Foreground="Gold" />
-                    </ListViewItem>
-                    <ListViewItem Margin="0,0,0,10" Background="#2d2d2d">
-                        <Label
-                            Content="test"
-                            FontSize="20"
-                            Foreground="Gold" />
-                    </ListViewItem>
-                    <ListViewItem Margin="0,0,0,10" Background="#2d2d2d">
-                        <Label
-                            Content="test"
-                            FontSize="20"
-                            Foreground="Gold" />
-                    </ListViewItem>
-                    <ListViewItem Margin="0,0,0,10" Background="#2d2d2d">
-                        <Label
-                            Content="test"
-                            FontSize="20"
-                            Foreground="Gold" />
-                    </ListViewItem>
-                    <ListViewItem Margin="0,0,0,10" Background="#2d2d2d">
-                        <Label
-                            Content="test"
-                            FontSize="20"
-                            Foreground="Gold" />
-                    </ListViewItem>
-                </ListView>
-            </StackPanel>
-        </ScrollViewer>
+                            Foreground="Gold"
+                            Text="{Binding name}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
     </Grid>
 </UserControl>

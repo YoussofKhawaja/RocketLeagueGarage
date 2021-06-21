@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using RocketLeagueGarage.FilesManager;
+using RocketLeagueGarage.MVVM.Model;
+using RocketLeagueGarage.MVVM.ViewModel;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace RocketLeagueGarage.MVVM.View
 {
@@ -20,9 +10,19 @@ namespace RocketLeagueGarage.MVVM.View
     /// </summary>
     public partial class HistoryLogsView : UserControl
     {
+        private HistoryLogsViewModel viewModel;
+
         public HistoryLogsView()
         {
             InitializeComponent();
+            this.DataContext = viewModel = new HistoryLogsViewModel();
+            Data();
+        }
+
+        private void Data()
+        {
+            viewModel.AddItem(new History() { name = "Name:" + " " + RocketData.WhatDoing });
+            Save.WriteToXmlFile(viewModel, "Data", "HistoryLogs");
         }
     }
 }
