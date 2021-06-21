@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,6 +33,7 @@ namespace RocketLeagueGarage
         private void ExitClicked(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
+            Environment.Exit(0);
         }
 
         //minimize app

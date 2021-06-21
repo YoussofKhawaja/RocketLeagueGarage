@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace RocketLeagueGarage.MVVM.Model
 {
@@ -17,5 +18,7 @@ namespace RocketLeagueGarage.MVVM.Model
         public static string TimeLabel { get; set; }
 
         public static PackIconKind Kind { get; set; }
+
+        public static Color Color { get; set; }
     }
 }

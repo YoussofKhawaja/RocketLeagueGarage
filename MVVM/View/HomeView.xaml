@@ -11,6 +11,12 @@
     d:DesignWidth="900"
     mc:Ignorable="d">
     <StackPanel>
+        <Grid VerticalAlignment="Top">
+            <notifications:NotificationArea
+                x:Name="WindowArea"
+                MaxItems="1"
+                Position="TopLeft" />
+        </Grid>
         <StackPanel>
             <TextBlock
                 Margin="0,0,0,20"
@@ -23,8 +29,8 @@
                 <Border Width="400" Height="260">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Offset="0.0" Color="#141414" />
-                            <GradientStop Offset="1" Color="#0f0f0f" />
+                            <GradientStop Offset="0.0" Color="#2d2d2d" />
+                            <GradientStop Offset="1" Color="#252525" />
                         </LinearGradientBrush>
                     </Border.Background>
 
@@ -62,8 +68,8 @@
                     CornerRadius="10">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Offset="0.0" Color="#141414" />
-                            <GradientStop Offset="1" Color="#0f0f0f" />
+                            <GradientStop Offset="0.0" Color="#2d2d2d" />
+                            <GradientStop Offset="1" Color="#252525" />
                         </LinearGradientBrush>
                     </Border.Background>
 
@@ -134,9 +140,5 @@
 
             </StackPanel>
         </StackPanel>
-        <notifications:NotificationArea
-            x:Name="WindowArea"
-            MaxItems="1"
-            Position="TopLeft" />
     </StackPanel>
 </UserControl>

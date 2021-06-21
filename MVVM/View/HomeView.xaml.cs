@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 
@@ -61,6 +62,9 @@ namespace RocketLeagueGarage.MVVM.View
         {
             if (IsRunning == false && starting == false)
             {
+                var color = (Color)ColorConverter.ConvertFromString("#FF0000");
+                RocketData.Color = color;
+
                 Debug.WriteLine("here1");
                 starting = true;
 
@@ -127,6 +131,7 @@ namespace RocketLeagueGarage.MVVM.View
                 onoff.Content = RocketData.OnOff;
                 timelabel.Text = RocketData.TimeLabel;
                 icon.Kind = RocketData.Kind;
+                buttonplay.Color = RocketData.Color;
             });
         }
 
@@ -222,6 +227,9 @@ namespace RocketLeagueGarage.MVVM.View
                 done = true;
                 RocketData.OnOff = "Not Running";
                 RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
+
+                var color = (Color)ColorConverter.ConvertFromString("#FFFFFF");
+                RocketData.Color = color;
             }
             catch
             {

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 
@@ -29,6 +30,8 @@ namespace RocketLeagueGarage
             RocketData.OnOff = "Not Running";
             RocketData.TimeLabel = "Run It To Know!";
             RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
+            var color = (Color)ColorConverter.ConvertFromString("#FFFFFF");
+            RocketData.Color = color;
         }
     }
 }
