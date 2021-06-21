@@ -1,6 +1,7 @@
 ﻿using RocketLeagueGarage.FilesManager;
 using RocketLeagueGarage.MVVM.Model;
 using RocketLeagueGarage.MVVM.ViewModel;
+using System;
 using System.Windows.Controls;
 
 namespace RocketLeagueGarage.MVVM.View
@@ -21,7 +22,7 @@ namespace RocketLeagueGarage.MVVM.View
 
         private void Data()
         {
-            viewModel.AddItem(new History() { name = "Name:" + " " + RocketData.WhatDoing });
+            viewModel.AddItem(new History() { name = "What Was Doing:" + " " + RocketData.WhatDoing, DateTime = "DateTime:" + " " + DateTime.UtcNow });
             Save.WriteToXmlFile(viewModel, "Data", "HistoryLogs");
         }
     }

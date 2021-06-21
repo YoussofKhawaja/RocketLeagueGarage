@@ -10,6 +10,8 @@ namespace RocketLeagueGarage.MVVM.Model
         [JsonPropertyName("name")]
         public string name { get; set; }
 
+        public String DateTime { get; set; }
+
         public History()
         {
         }
