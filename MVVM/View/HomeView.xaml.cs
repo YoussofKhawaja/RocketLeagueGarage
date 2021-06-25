@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using Notifications.Wpf.Core;
+using Notifications.Wpf.Core.Controls;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using RocketLeagueGarage.FilesManager;
 using RocketLeagueGarage.Helper;
@@ -22,6 +24,7 @@ namespace RocketLeagueGarage.MVVM.View
     /// </summary>
     public partial class HomeView : UserControl
     {
+        public static HomeView homeview;
         public AccountDataModel user;
         public static ChromeDriver driver;
         private CountDownTimer timer = new CountDownTimer();
@@ -36,7 +39,9 @@ namespace RocketLeagueGarage.MVVM.View
 
         public HomeView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+            homeview = this;
+
             startStatusBarTimer2();
             Timer();
         }
@@ -62,9 +67,6 @@ namespace RocketLeagueGarage.MVVM.View
         {
             if (IsRunning == false && starting == false)
             {
-                var color = (Color)ColorConverter.ConvertFromString("#FF0000");
-                RocketData.Color = color;
-
                 Debug.WriteLine("here1");
                 starting = true;
 
@@ -78,6 +80,8 @@ namespace RocketLeagueGarage.MVVM.View
 
                 if (done == true)
                 {
+                    var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
+                    RocketData.Color = color2;
                     timer.Start();
                 }
             }
@@ -86,6 +90,17 @@ namespace RocketLeagueGarage.MVVM.View
                 Debug.WriteLine("here2");
 
                 await Task.Run(ChromeDriverQuit);
+
+                var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
+                RocketData.Color = color2;
+            }
+            else
+            {
+                var notificationManager = new NotificationManager(NotificationPosition.TopRight);
+
+                await notificationManager.ShowAsync(
+                new NotificationContent { Title = "Error", Message = "Not Running", Type = NotificationType.Error },
+                areaName: "WindowArea");
             }
         }
 
@@ -137,8 +152,8 @@ namespace RocketLeagueGarage.MVVM.View
 
         private void ChromeDriver()
         {
-            RocketData.OnOff = "Running";
-            RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop;
+            RocketData.OnOff = "Updating";
+            RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Update;
 
             user = Save.ReadFromXmlFile<AccountDataModel>("Data", "Account");
 
@@ -160,7 +175,12 @@ namespace RocketLeagueGarage.MVVM.View
                 Url = $"https://rocket-league.com/trades/{user.Name}"
             };
 
+            var color = (Color)ColorConverter.ConvertFromString("#FF0000");
+            RocketData.Color = color;
+
             RocketData.WhatDoing = "Started ChromeDriver";
+            RocketData.OnOff = "Running";
+            RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop;
         }
 
         private void Element()
@@ -243,6 +263,7 @@ namespace RocketLeagueGarage.MVVM.View
         private void ChromeDriverQuit()
         {
             driver.Quit();
+            IsRunning = false;
             RocketData.OnOff = "Not Running";
             RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
             RocketData.WhatDoing = "Stopped";

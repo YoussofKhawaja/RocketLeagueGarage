@@ -1,7 +1,10 @@
 ﻿using RocketLeagueGarage.Core;
+using RocketLeagueGarage.FilesManager;
 using RocketLeagueGarage.MVVM.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,25 +12,25 @@ namespace RocketLeagueGarage.MVVM.ViewModel
 {
     public class HistoryLogsViewModel : ObservableObject
     {
-        public static History HisLogs;
-        private ObservableCollection<History> historys;
+        private ObservableCollection<History> history;
 
         public ObservableCollection<History> History
         {
             get
             {
-                return historys;
+                return history;
             }
             set
             {
-                historys = value;
+                history = value;
                 OnPropertyChanged();
             }
         }
 
         public HistoryLogsViewModel()
         {
-            History = new ObservableCollection<History>();
+            Read();
+            Write();
         }
 
         //AddItem
@@ -75,6 +78,22 @@ namespace RocketLeagueGarage.MVVM.ViewModel
         public Task<History> GetHistoryLog(int index)
         {
             return Task.FromResult(History[index]);
+        }
+
+        public void Write()
+        {
+            if (History != null && History.Count != 0)
+                if (RocketData.WhatDoing == History[History.Count - 1].name)
+                    return;
+
+            AddItems(new List<History>() { new History() { name = RocketData.WhatDoing, DateTime = DateTime.UtcNow.ToString() } });
+
+            Save.WriteToXmlFile<List<History>>(History.ToList(), "Data", "history");
+        }
+
+        public void Read()
+        {
+            History = new System.Collections.ObjectModel.ObservableCollection<History>(Save.ReadFromXmlFile<List<History>>("Data", "history"));
         }
     }
 }

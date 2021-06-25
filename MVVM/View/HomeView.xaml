@@ -16,14 +16,7 @@
         <viewModel:HomeViewModel />
     </UserControl.DataContext>
 
-
     <StackPanel>
-        <Grid VerticalAlignment="Top">
-            <notifications:NotificationArea
-                x:Name="WindowArea"
-                MaxItems="1"
-                Position="TopLeft" />
-        </Grid>
         <StackPanel>
             <TextBlock
                 Margin="0,0,0,20"
