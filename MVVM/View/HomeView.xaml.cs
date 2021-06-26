@@ -123,8 +123,8 @@ namespace RocketLeagueGarage.MVVM.View
         {
             if (timer.TimeLeftMsStr == "00:00.000")
             {
-                timer.Reset();
                 onoffbutton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+                timer.Reset();
             }
         }
 
@@ -262,7 +262,7 @@ namespace RocketLeagueGarage.MVVM.View
                     var trades = driver.FindElementsByClassName("rlg-trade__bump");
                     var closeup = driver.FindElement(By.ClassName("rlg-site-popup__container"));
 
-                    int i = 0;
+                    int i = 1;
                     foreach (var trade in trades)
                     {
                         trade.Click();
