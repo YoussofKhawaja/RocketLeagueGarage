@@ -5,7 +5,11 @@ using OpenQA.Selenium.Chrome;
 using RocketLeagueGarage.FilesManager;
 using RocketLeagueGarage.Helper;
 using RocketLeagueGarage.MVVM.Model;
+using RocketLeagueGarage.MVVM.ViewModel;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
@@ -28,6 +32,7 @@ namespace RocketLeagueGarage.MVVM.View
         public AccountDataModel user;
         public static ChromeDriver driver;
         private CountDownTimer timer = new CountDownTimer();
+        private HistoryLogsViewModel viewmodel = new HistoryLogsViewModel();
 
         #region bools
 
@@ -138,6 +143,17 @@ namespace RocketLeagueGarage.MVVM.View
             }
         }
 
+        public void Write()
+        {
+            if (viewmodel.History != null && viewmodel.History.Count != 0)
+                if (RocketData.WhatDoing == viewmodel.History[viewmodel.History.Count - 1].name)
+                    return;
+
+            viewmodel.AddItems(new List<History>() { new History() { name = RocketData.WhatDoing, DateTime = DateTime.Now.ToString() } });
+
+            Save.WriteToXmlFile<List<History>>(viewmodel.History.ToList(), "Data", "history");
+        }
+
         private void TextUpdate()
         {
             this.Dispatcher.Invoke(() =>
@@ -155,14 +171,20 @@ namespace RocketLeagueGarage.MVVM.View
             RocketData.OnOff = "Updating";
             RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Update;
 
+            Task.Run(Write).Wait();
+
             user = Save.ReadFromXmlFile<AccountDataModel>("Data", "Account");
 
             RocketData.WhatDoing = "Setting Up ChromeDrive";
+
+            Task.Run(Write).Wait();
 
             Thread.Sleep(1000);
 
             new DriverManager().SetUpDriver(new ChromeConfig());
             RocketData.WhatDoing = "Setting Up Done, Starting Up ChromeDriver";
+
+            Task.Run(Write).Wait();
 
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("headless");
@@ -181,6 +203,8 @@ namespace RocketLeagueGarage.MVVM.View
             RocketData.WhatDoing = "Started ChromeDriver";
             RocketData.OnOff = "Running";
             RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop;
+
+            Task.Run(Write);
         }
 
         private void Element()
@@ -193,16 +217,22 @@ namespace RocketLeagueGarage.MVVM.View
                 email.SendKeys(user.Email);
                 RocketData.WhatDoing = "Email Entered";
 
+                Task.Run(Write).Wait();
+
                 Thread.Sleep(1000);
 
                 IWebElement password = driver.FindElement(By.CssSelector("#header-password"));
                 password.SendKeys(user.Password);
                 RocketData.WhatDoing = "Password Entered";
 
+                Task.Run(Write).Wait();
+
                 Thread.Sleep(1000);
 
                 password.SendKeys(Keys.Enter);
                 RocketData.WhatDoing = "Login Button Clicked";
+
+                Task.Run(Write).Wait();
 
                 Thread.Sleep(1000);
 
@@ -213,6 +243,8 @@ namespace RocketLeagueGarage.MVVM.View
                 {
                     RocketData.WhatDoing = "Your email or password were not recognised";
 
+                    Task.Run(Write).Wait();
+
                     driver.Quit();
 
                     return;
@@ -222,6 +254,8 @@ namespace RocketLeagueGarage.MVVM.View
                     IWebElement notificationperms = driver.FindElement(By.ClassName("rlg-notificationperms__decline"));
                     notificationperms.Click();
                     RocketData.WhatDoing = "Disable Notification";
+
+                    Task.Run(Write).Wait();
 
                     Thread.Sleep(1000);
 
@@ -234,6 +268,8 @@ namespace RocketLeagueGarage.MVVM.View
                         trade.Click();
                         RocketData.WhatDoing = $"Trade {i} Bumped";
 
+                        Task.Run(Write).Wait();
+
                         Thread.Sleep(1000);
 
                         closeup.Click();
@@ -242,9 +278,13 @@ namespace RocketLeagueGarage.MVVM.View
                     }
                     RocketData.WhatDoing = $"Trade Bump for {trades.Count} Done";
 
+                    Task.Run(Write).Wait();
+
                     Thread.Sleep(1000);
 
-                    RocketData.WhatDoing = "Login Button Clicked";
+                    RocketData.WhatDoing = "Running After Time Over!";
+
+                    Task.Run(Write);
                 }
 
                 driver.Quit();
@@ -254,9 +294,23 @@ namespace RocketLeagueGarage.MVVM.View
 
                 var color = (Color)ColorConverter.ConvertFromString("#FFFFFF");
                 RocketData.Color = color;
+
+                Task.Run(Write);
             }
             catch
             {
+                var notificationManager = new NotificationManager(NotificationPosition.TopRight);
+
+                notificationManager.ShowAsync(
+                new NotificationContent { Title = "Error", Message = "Something Went Wrong", Type = NotificationType.Error },
+                areaName: "WindowArea");
+
+                driver.Quit();
+
+                IsRunning = false;
+                RocketData.OnOff = "Not Running";
+                RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
+                RocketData.WhatDoing = "Stopped";
             }
         }
 
@@ -267,6 +321,8 @@ namespace RocketLeagueGarage.MVVM.View
             RocketData.OnOff = "Not Running";
             RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
             RocketData.WhatDoing = "Stopped";
+
+            Task.Run(Write);
         }
 
         private void Timer()

@@ -30,7 +30,6 @@ namespace RocketLeagueGarage.MVVM.ViewModel
         public HistoryLogsViewModel()
         {
             Read();
-            Write();
         }
 
         //AddItem
@@ -78,17 +77,6 @@ namespace RocketLeagueGarage.MVVM.ViewModel
         public Task<History> GetHistoryLog(int index)
         {
             return Task.FromResult(History[index]);
-        }
-
-        public void Write()
-        {
-            if (History != null && History.Count != 0)
-                if (RocketData.WhatDoing == History[History.Count - 1].name)
-                    return;
-
-            AddItems(new List<History>() { new History() { name = RocketData.WhatDoing, DateTime = DateTime.UtcNow.ToString() } });
-
-            Save.WriteToXmlFile<List<History>>(History.ToList(), "Data", "history");
         }
 
         public void Read()

@@ -15,45 +15,49 @@
     </UserControl.DataContext>
 
     <Grid>
-        <StackPanel>
-            <Label
-                HorizontalContentAlignment="Center"
-                Content="History Of What Happened"
-                FontSize="30"
-                Foreground="White" />
-            <ListView ItemsSource="{Binding History}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <Setter Property="Background" Value="#2d2d2d" />
-                        <Setter Property="Focusable" Value="false" />
-                        <Style.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="{x:Null}" />
-                                <Setter Property="BorderBrush" Value="{x:Null}" />
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="Transparent" />
-                                <Setter Property="BorderThickness" Value="0" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock
-                                FontSize="20"
-                                Foreground="Gold"
-                                Text="{Binding name}" />
-                            <TextBlock
-                                FontSize="20"
-                                Foreground="Gold"
-                                Text="{Binding DateTime}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
+        <ScrollViewer>
+            <StackPanel>
+                <Label
+                    HorizontalContentAlignment="Center"
+                    Content="History Of What Happened"
+                    FontSize="30"
+                    Foreground="White" />
+
+                <ListView ItemsSource="{Binding History}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Margin" Value="5" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Background" Value="#2d2d2d" />
+                            <Setter Property="Focusable" Value="false" />
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="{x:Null}" />
+                                    <Setter Property="BorderBrush" Value="{x:Null}" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="5">
+                                <TextBlock
+                                    FontSize="20"
+                                    Foreground="Gold"
+                                    Text="{Binding name}" />
+                                <TextBlock
+                                    FontSize="20"
+                                    Foreground="Gold"
+                                    Text="{Binding DateTime}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>
