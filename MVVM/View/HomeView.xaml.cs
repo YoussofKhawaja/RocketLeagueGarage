@@ -123,7 +123,11 @@ namespace RocketLeagueGarage.MVVM.View
         {
             if (timer.TimeLeftMsStr == "00:00.000")
             {
-                onoffbutton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+                this.Dispatcher.Invoke(() =>
+                {
+                    onoffbutton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+                });
+
                 timer.Reset();
             }
         }
