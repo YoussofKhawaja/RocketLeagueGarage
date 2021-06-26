@@ -6,8 +6,6 @@
     xmlns:local="clr-namespace:RocketLeagueGarage.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:RocketLeagueGarage.MVVM.ViewModel"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
     mc:Ignorable="d">
 
     <UserControl.DataContext>
@@ -15,49 +13,51 @@
     </UserControl.DataContext>
 
     <Grid>
-        <ScrollViewer>
-            <StackPanel>
-                <Label
-                    HorizontalContentAlignment="Center"
-                    Content="History Of What Happened"
-                    FontSize="30"
-                    Foreground="White" />
-
-                <ListView ItemsSource="{Binding History}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListViewItem}">
-                            <Setter Property="Margin" Value="5" />
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Background" Value="#2d2d2d" />
-                            <Setter Property="Focusable" Value="false" />
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="{x:Null}" />
-                                    <Setter Property="BorderBrush" Value="{x:Null}" />
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="Transparent" />
-                                    <Setter Property="BorderThickness" Value="0" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="5">
-                                <TextBlock
-                                    FontSize="20"
-                                    Foreground="Gold"
-                                    Text="{Binding name}" />
-                                <TextBlock
-                                    FontSize="20"
-                                    Foreground="Gold"
-                                    Text="{Binding DateTime}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
-        </ScrollViewer>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Label
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            Content="History Of What Happened"
+            FontSize="30"
+            Foreground="White" />
+        <StackPanel Grid.Row="1">
+            <ListView MaxHeight="545" ItemsSource="{Binding History}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Margin" Value="5" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Background" Value="#2d2d2d" />
+                        <Setter Property="Focusable" Value="false" />
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{x:Null}" />
+                                <Setter Property="BorderBrush" Value="{x:Null}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock
+                                FontSize="20"
+                                Foreground="Gold"
+                                Text="{Binding name}" />
+                            <TextBlock
+                                FontSize="20"
+                                Foreground="Gold"
+                                Text="{Binding DateTime}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
     </Grid>
 </UserControl>

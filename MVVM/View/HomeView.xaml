@@ -97,7 +97,7 @@
 
         <StackPanel>
             <TextBlock
-                Margin="0,0,0,20"
+                Margin="0,10,0,20"
                 HorizontalAlignment="Left"
                 FontSize="28"
                 Foreground="White"
