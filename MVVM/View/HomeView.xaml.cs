@@ -99,6 +99,28 @@ namespace RocketLeagueGarage.MVVM.View
                 var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
                 RocketData.Color = color2;
             }
+            else if (timer.IsRunnign == true)
+            {
+                timer.Reset();
+
+                Debug.WriteLine("here1");
+                starting = true;
+
+                await Task.Run(ChromeDriver);
+
+                IsRunning = true;
+
+                await Task.Run(Element);
+
+                IsRunning = false;
+
+                if (done == true)
+                {
+                    var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
+                    RocketData.Color = color2;
+                    timer.Start();
+                }
+            }
             else
             {
                 var notificationManager = new NotificationManager(NotificationPosition.TopRight);
