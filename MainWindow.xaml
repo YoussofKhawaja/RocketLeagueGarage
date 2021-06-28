@@ -9,7 +9,7 @@
     xmlns:notifications="clr-namespace:Notifications.Wpf.Core.Controls;assembly=Notifications.Wpf.Core"
     xmlns:viewModel="clr-namespace:RocketLeagueGarage.MVVM.ViewModel"
     Width="1100"
-    Height="690"
+    Height="740"
     AllowsTransparency="True"
     Background="Transparent"
     ResizeMode="NoResize"

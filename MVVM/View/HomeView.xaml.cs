@@ -292,13 +292,24 @@ namespace RocketLeagueGarage.MVVM.View
                     foreach (var trade in trades)
                     {
                         trade.Click();
-                        RocketData.WhatDoing = $"Trade {i} Bumped";
-
-                        Task.Run(Write).Wait();
 
                         Thread.Sleep(1000);
 
                         closeup.Click();
+
+                        var ErrorMaybe = closeup.Text;
+                        Debug.WriteLine(ErrorMaybe);
+
+                        if (ErrorMaybe.Contains("ERROR"))
+                        {
+                            RocketData.WhatDoing = ErrorMaybe + " " + "Trade List" + " " + i;
+                            Task.Run(Write).Wait();
+                        }
+                        else
+                        {
+                            RocketData.WhatDoing = $"Trade {i} Bumped!";
+                            Task.Run(Write).Wait();
+                        }
 
                         i++;
                     }
