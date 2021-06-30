@@ -1,17 +1,14 @@
 ﻿using RocketLeagueGarage.Core;
 using RocketLeagueGarage.FilesManager;
 using RocketLeagueGarage.MVVM.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace RocketLeagueGarage.MVVM.ViewModel
 {
     public class AccountViewModel : ObservableObject
     {
         public static AccountDataModel AppData = new AccountDataModel();
+
         private string name;
 
         public string Name
