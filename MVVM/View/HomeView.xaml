@@ -140,7 +140,7 @@
                             VerticalAlignment="Bottom"
                             HorizontalContentAlignment="Center"
                             FontSize="22"
-                            Foreground="White" />
+                            Foreground="gold" />
                     </Grid>
                 </Border>
 

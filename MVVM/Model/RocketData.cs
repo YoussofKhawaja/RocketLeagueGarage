@@ -17,6 +17,14 @@ namespace RocketLeagueGarage.MVVM.Model
 
         public static string TimeLabel { get; set; }
 
+        public static string Error { get; set; }
+
+        public static string IsRunning { get; set; }
+
+        public static string SettingUp { get; set; }
+
+        public static string Done { get; set; }
+
         public static PackIconKind Kind { get; set; }
 
         public static Color Color { get; set; }

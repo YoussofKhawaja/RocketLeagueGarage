@@ -34,14 +34,6 @@ namespace RocketLeagueGarage.MVVM.View
         private CountDownTimer timer = new CountDownTimer();
         private HistoryLogsViewModel viewmodel = new HistoryLogsViewModel();
 
-        #region bools
-
-        private static bool IsRunning = false;
-        private static bool starting = false;
-        private static bool done = false;
-
-        #endregion bools
-
         public HomeView()
         {
             this.InitializeComponent();
@@ -70,64 +62,37 @@ namespace RocketLeagueGarage.MVVM.View
 
         private async void onoffbutton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsRunning == false && starting == false)
+            if (RocketData.IsRunning == "Running")
             {
-                Debug.WriteLine("here1");
-                starting = true;
-
-                await Task.Run(ChromeDriver);
-
-                IsRunning = true;
-
-                await Task.Run(Element);
-
-                IsRunning = false;
-
-                if (done == true)
-                {
-                    var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
-                    RocketData.Color = color2;
-                    timer.Start();
-                }
-            }
-            else if (IsRunning == true)
-            {
-                Debug.WriteLine("here2");
-
+                Debug.WriteLine("here");
                 await Task.Run(ChromeDriverQuit);
 
-                var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
-                RocketData.Color = color2;
+                RocketData.IsRunning = "NotRunning";
             }
-            else if (timer.IsRunnign == true)
-            {
-                timer.Reset();
-
-                Debug.WriteLine("here1");
-                starting = true;
-
-                await Task.Run(ChromeDriver);
-
-                IsRunning = true;
-
-                await Task.Run(Element);
-
-                IsRunning = false;
-
-                if (done == true)
-                {
-                    var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
-                    RocketData.Color = color2;
-                    timer.Start();
-                }
-            }
-            else
+            else if (RocketData.SettingUp == "SettingUp")
             {
                 var notificationManager = new NotificationManager(NotificationPosition.TopRight);
 
                 await notificationManager.ShowAsync(
-                new NotificationContent { Title = "Error", Message = "Not Running", Type = NotificationType.Error },
+                new NotificationContent { Title = "Error", Message = "Updating", Type = NotificationType.Error },
+
                 areaName: "WindowArea");
+            }
+            else
+            {
+                RocketData.SettingUp = "SettingUp";
+
+                await Task.Run(ChromeDriver);
+
+                RocketData.SettingUp = "NotSettingUp";
+                RocketData.IsRunning = "Running";
+
+                await Task.Run(Element);
+
+                if (RocketData.Done == "Done")
+                {
+                    timer.Start();
+                }
             }
         }
 
@@ -286,23 +251,20 @@ namespace RocketLeagueGarage.MVVM.View
                     Thread.Sleep(1000);
 
                     var trades = driver.FindElementsByClassName("rlg-trade__bump");
-                    var closeup = driver.FindElement(By.ClassName("rlg-site-popup__container"));
+                    var closeup = driver.FindElement(By.XPath("/html/body/div[2]/div/div"));
 
                     int i = 1;
                     foreach (var trade in trades)
                     {
                         trade.Click();
+                        RocketData.Error = closeup.Text;
+                        Thread.Sleep(2000);
 
-                        Thread.Sleep(1000);
+                        Debug.WriteLine(RocketData.Error);
 
-                        closeup.Click();
-
-                        var ErrorMaybe = closeup.Text;
-                        Debug.WriteLine(ErrorMaybe);
-
-                        if (ErrorMaybe.Contains("ERROR"))
+                        if (RocketData.Error.Contains("ERROR"))
                         {
-                            RocketData.WhatDoing = ErrorMaybe + " " + "Trade List" + " " + i;
+                            RocketData.WhatDoing = RocketData.Error + " " + "Trade List" + " " + i;
                             Task.Run(Write).Wait();
                         }
                         else
@@ -310,6 +272,8 @@ namespace RocketLeagueGarage.MVVM.View
                             RocketData.WhatDoing = $"Trade {i} Bumped!";
                             Task.Run(Write).Wait();
                         }
+
+                        closeup.Click();
 
                         i++;
                     }
@@ -319,13 +283,12 @@ namespace RocketLeagueGarage.MVVM.View
 
                     Thread.Sleep(1000);
 
-                    RocketData.WhatDoing = "Running After Time Over!";
+                    RocketData.WhatDoing = "Running After Timer Over!";
 
                     Task.Run(Write);
                 }
 
                 driver.Quit();
-                done = true;
                 RocketData.OnOff = "Not Running";
                 RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
 
@@ -333,31 +296,25 @@ namespace RocketLeagueGarage.MVVM.View
                 RocketData.Color = color;
 
                 Task.Run(Write);
+
+                var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
+                RocketData.Color = color2;
+
+                RocketData.Done = "Done";
             }
             catch
             {
-                var notificationManager = new NotificationManager(NotificationPosition.TopRight);
-
-                notificationManager.ShowAsync(
-                new NotificationContent { Title = "Error", Message = "Something Went Wrong", Type = NotificationType.Error },
-                areaName: "WindowArea");
-
-                driver.Quit();
-
-                IsRunning = false;
-                RocketData.OnOff = "Not Running";
-                RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
-                RocketData.WhatDoing = "Stopped";
             }
         }
 
         private void ChromeDriverQuit()
         {
             driver.Quit();
-            IsRunning = false;
             RocketData.OnOff = "Not Running";
             RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
             RocketData.WhatDoing = "Stopped";
+            var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
+            RocketData.Color = color2;
 
             Task.Run(Write);
         }

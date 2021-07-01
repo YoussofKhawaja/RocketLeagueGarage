@@ -46,7 +46,7 @@
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="true">
-                                            <Setter TargetName="Bd" Property="Background" Value="darkgray" />
+                                            <Setter TargetName="Bd" Property="Background" Value="#141414" />
                                             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
                                         </Trigger>
                                         <MultiTrigger>
