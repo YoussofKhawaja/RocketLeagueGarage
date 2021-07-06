@@ -5,14 +5,20 @@
 		<TargetFramework>net5.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
-		<ApplicationIcon>profile.ico</ApplicationIcon>
+		<ApplicationIcon>RocketLeagueGarage.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <None Remove=".gitattributes" />
 	  <None Remove=".gitignore" />
 	  <None Remove="LICENSE" />
-	  <None Remove="profile.ico" />
+	  <None Remove="RocketLeagueGarage.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="RocketLeagueGarage.ico">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -20,15 +26,5 @@
 		<PackageReference Include="Notifications.Wpf.Core" Version="1.3.2" />
 		<PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
 		<PackageReference Include="WebDriverManager" Version="2.11.1" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <_DeploymentManifestIconFile Remove="profile.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Include="profile.ico">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </EmbeddedResource>
 	</ItemGroup>
 </Project>

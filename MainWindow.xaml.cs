@@ -76,7 +76,7 @@ namespace RocketLeagueGarage
                 notifyIcon.Visible = true;
 
                 //The icon displayed in the tray
-                notifyIcon.Icon = new System.Drawing.Icon("profile.ico");
+                notifyIcon.Icon = new System.Drawing.Icon("RocketLeagueGarage.ico");
 
                 //Tray bubble display time
                 notifyIcon.ShowBalloonTip(1000);
