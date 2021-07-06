@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace RocketLeagueGarage.MVVM.View
 {
@@ -17,6 +18,10 @@ namespace RocketLeagueGarage.MVVM.View
         public HistoryLogsView()
         {
             InitializeComponent();
+
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listviewgroup.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("test");
+            view.GroupDescriptions.Add(groupDescription);
         }
     }
 }

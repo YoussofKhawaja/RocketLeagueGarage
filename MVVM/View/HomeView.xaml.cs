@@ -20,6 +20,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
+using static RocketLeagueGarage.MVVM.Model.History;
 
 namespace RocketLeagueGarage.MVVM.View
 {
@@ -67,6 +68,9 @@ namespace RocketLeagueGarage.MVVM.View
                 Debug.WriteLine("here");
                 await Task.Run(ChromeDriverQuit);
 
+                timer.Stop();
+                timer.Reset();
+
                 RocketData.IsRunning = "NotRunning";
             }
             else if (RocketData.SettingUp == "SettingUp")
@@ -78,8 +82,13 @@ namespace RocketLeagueGarage.MVVM.View
 
                 areaName: "WindowArea");
             }
-            else
+            else if (timer.IsRunnign)
             {
+                timer.Stop();
+                timer.Reset();
+
+                Debug.WriteLine("timerhere");
+
                 RocketData.SettingUp = "SettingUp";
 
                 await Task.Run(ChromeDriver);
@@ -93,6 +102,25 @@ namespace RocketLeagueGarage.MVVM.View
                 {
                     timer.Start();
                 }
+            }
+            else
+            {
+                Debug.WriteLine("normal");
+                RocketData.SettingUp = "SettingUp";
+
+                await Task.Run(ChromeDriver);
+
+                RocketData.SettingUp = "NotSettingUp";
+                RocketData.IsRunning = "Running";
+
+                await Task.Run(Element);
+
+                if (RocketData.Done == "Done")
+                {
+                    timer.Start();
+                }
+
+                RocketData.IsRunning = "NotRunning";
             }
         }
 
@@ -140,7 +168,7 @@ namespace RocketLeagueGarage.MVVM.View
                 if (RocketData.WhatDoing == viewmodel.History[viewmodel.History.Count - 1].name)
                     return;
 
-            viewmodel.AddItems(new List<History>() { new History() { name = RocketData.WhatDoing, DateTime = DateTime.Now.ToString() } });
+            viewmodel.AddItems(new List<History>() { new History() { name = RocketData.WhatDoing, DateTime = DateTime.Now.ToString(), test = DateTime.Now.ToString("yyyy/MM/dd") } });
 
             Save.WriteToXmlFile<List<History>>(viewmodel.History.ToList(), "Data", "history");
         }
@@ -309,12 +337,16 @@ namespace RocketLeagueGarage.MVVM.View
 
         private void ChromeDriverQuit()
         {
+            RocketData.WhatDoing = "Stopping...";
+
             driver.Quit();
+
+            var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
+            RocketData.Color = color2;
+
             RocketData.OnOff = "Not Running";
             RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
             RocketData.WhatDoing = "Stopped";
-            var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
-            RocketData.Color = color2;
 
             Task.Run(Write);
         }

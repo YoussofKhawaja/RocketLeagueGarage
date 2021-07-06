@@ -24,7 +24,10 @@
             FontSize="30"
             Foreground="White" />
         <StackPanel Grid.Row="1">
-            <ListView MaxHeight="540" ItemsSource="{Binding History}">
+            <ListView
+                Name="listviewgroup"
+                MaxHeight="540"
+                ItemsSource="{Binding History}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Background" Value="#2d2d2d" />
@@ -84,6 +87,21 @@
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    FontSize="40"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="{Binding Name}" />
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+
             </ListView>
         </StackPanel>
     </Grid>

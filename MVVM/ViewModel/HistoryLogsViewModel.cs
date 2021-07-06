@@ -1,12 +1,14 @@
 ﻿using RocketLeagueGarage.Core;
 using RocketLeagueGarage.FilesManager;
 using RocketLeagueGarage.MVVM.Model;
+using RocketLeagueGarage.MVVM.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace RocketLeagueGarage.MVVM.ViewModel
 {
