@@ -76,6 +76,8 @@
                                             <Setter TargetName="Bd" Property="Background" Value="#141414" />
                                             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
                                         </Trigger>
+                                        <Trigger Property="ScrollViewer.Background" Value="White" />
+                                        <Trigger Property="ScrollViewer.BorderBrush" Value="Black" />
                                         <MultiTrigger>
                                             <MultiTrigger.Conditions>
                                                 <Condition Property="IsSelected" Value="true" />
