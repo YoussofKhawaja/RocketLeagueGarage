@@ -18,7 +18,11 @@ namespace RocketLeagueGarage.MVVM.View
         public HistoryLogsView()
         {
             InitializeComponent();
+            Group();
+        }
 
+        private void Group()
+        {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listviewgroup.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("test");
             view.GroupDescriptions.Add(groupDescription);
