@@ -287,16 +287,16 @@ namespace RocketLeagueGarage.MVVM.View
 
                 var trades = driver.FindElementsByClassName("rlg-trade__bump");
                 var closeup = driver.FindElementByXPath("/html/body/div[2]/div/span");
+                var closeuptext = driver.FindElementByClassName("rlg-site-popup__content");
 
                 int i = 1;
                 foreach (var trade in trades)
                 {
-                    Debug.WriteLine(trades.Count());
                     trade.Click();
 
                     Thread.Sleep(2000);
 
-                    RocketData.Error = closeup.Text;
+                    RocketData.Error = closeuptext.Text;
 
                     Debug.WriteLine(RocketData.Error);
 
@@ -312,7 +312,6 @@ namespace RocketLeagueGarage.MVVM.View
                     }
 
                     closeup.Click();
-                    Debug.WriteLine("here");
 
                     i++;
                 }
