@@ -206,6 +206,7 @@ namespace RocketLeagueGarage.MVVM.View
             Task.Run(Write).Wait();
 
             ChromeOptions options = new ChromeOptions();
+            options.AddArgument("start-maximized");
             options.AddArgument("headless");
 
             ChromeDriverService driverService = ChromeDriverService.CreateDefaultService();
@@ -285,11 +286,12 @@ namespace RocketLeagueGarage.MVVM.View
                 Thread.Sleep(1000);
 
                 var trades = driver.FindElementsByClassName("rlg-trade__bump");
-                var closeup = driver.FindElement(By.ClassName("rlg-site-popup__container"));
+                var closeup = driver.FindElementByXPath("/html/body/div[2]/div/span");
 
                 int i = 1;
                 foreach (var trade in trades)
                 {
+                    Debug.WriteLine(trades.Count());
                     trade.Click();
 
                     Thread.Sleep(2000);
