@@ -153,7 +153,7 @@ namespace RocketLeagueGarage.MVVM.View
             try
             {
                 System.Timers.Timer statusTime = new System.Timers.Timer();
-                statusTime.Interval = 1;
+                statusTime.Interval = 0.01;
                 statusTime.Elapsed += new System.Timers.ElapsedEventHandler(TextUpdate);
                 statusTime.Enabled = true;
             }
@@ -222,6 +222,7 @@ namespace RocketLeagueGarage.MVVM.View
 
             RocketData.WhatDoing = "Started ChromeDriver";
             RocketData.OnOff = "Running";
+            RocketData.TimeLabel = "Waiting To Finish This Task";
             RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop;
 
             Task.Run(Write);
@@ -229,124 +230,135 @@ namespace RocketLeagueGarage.MVVM.View
 
         private void Element()
         {
-            driver.FindElement(By.CssSelector("#acceptPrivacyPolicy")).Click();
-
-            IWebElement loginbuttonpress = driver.FindElement(By.XPath("/html/body/header/section[1]/div/div[2]/div/a[1]"));
-            loginbuttonpress.Click();
-            RocketData.WhatDoing = "button clicked";
-
-            Task.Run(Write).Wait();
-
-            Thread.Sleep(1000);
-
-            IWebElement email = driver.FindElement(By.XPath("/html/body/main/main/section/div/div/div[1]/form/input[2]"));
-            email.SendKeys(user.Email);
-            RocketData.WhatDoing = "Email Entered";
-
-            Task.Run(Write).Wait();
-
-            Thread.Sleep(1000);
-
-            IWebElement password = driver.FindElement(By.XPath("/html/body/main/main/section/div/div/div[1]/form/input[3]"));
-            password.SendKeys(user.Password);
-            RocketData.WhatDoing = "Password Entered";
-
-            Task.Run(Write).Wait();
-
-            Thread.Sleep(1000);
-
-            password.SendKeys(Keys.Enter);
-            RocketData.WhatDoing = "Login Button Clicked";
-
-            Task.Run(Write).Wait();
-
-            Thread.Sleep(1000);
-
-            IWebElement eror = driver.FindElement(By.ClassName("rlg-site-popup__container"));
-            string error = eror.Text;
-
-            if (error.Contains("ERROR"))
+            try
             {
-                RocketData.WhatDoing = "Your email or password were not recognised";
+                driver.FindElement(By.CssSelector("#acceptPrivacyPolicy")).Click();
+
+                IWebElement loginbuttonpress = driver.FindElement(By.XPath("/html/body/header/section[1]/div/div[2]/div/a[1]"));
+
+                RocketData.WhatDoing = "Accept Privacy Policy";
+
+                loginbuttonpress.Click();
+
+                RocketData.WhatDoing = "Accepted Privacy Policy";
 
                 Task.Run(Write).Wait();
+
+                Thread.Sleep(1000);
+
+                IWebElement email = driver.FindElement(By.XPath("/html/body/main/main/section/div/div/div[1]/form/input[2]"));
+                email.SendKeys(user.Email);
+                RocketData.WhatDoing = "Email Entered";
+
+                Task.Run(Write).Wait();
+
+                Thread.Sleep(1000);
+
+                IWebElement password = driver.FindElement(By.XPath("/html/body/main/main/section/div/div/div[1]/form/input[3]"));
+                password.SendKeys(user.Password);
+                RocketData.WhatDoing = "Password Entered";
+
+                Task.Run(Write).Wait();
+
+                Thread.Sleep(1000);
+
+                password.SendKeys(Keys.Enter);
+                RocketData.WhatDoing = "Login Button Clicked";
+
+                Task.Run(Write).Wait();
+
+                Thread.Sleep(1000);
+
+                IWebElement eror = driver.FindElement(By.ClassName("rlg-site-popup__container"));
+                string error = eror.Text;
+
+                if (error.Contains("ERROR"))
+                {
+                    RocketData.WhatDoing = "Your email or password were not recognised";
+
+                    Task.Run(Write).Wait();
+
+                    driver.Quit();
+
+                    return;
+                }
+                else
+                {
+                    IWebElement notificationperms = driver.FindElement(By.ClassName("rlg-notificationperms__decline"));
+                    notificationperms.Click();
+                    RocketData.WhatDoing = "Decline Notification";
+
+                    Task.Run(Write).Wait();
+
+                    Thread.Sleep(1000);
+
+                    var trades = driver.FindElementsByClassName("rlg-trade__bump");
+                    var closeup = driver.FindElementByXPath("/html/body/div[2]/div/span");
+                    IWebElement closeuptext = driver.FindElementByClassName("rlg-site-popup__content");
+
+                    int i = 1;
+                    foreach (var trade in trades)
+                    {
+                        trade.Click();
+
+                        Thread.Sleep(2000);
+
+                        RocketData.Error = closeuptext.Text;
+
+                        Debug.WriteLine(closeuptext.Text);
+                        Debug.WriteLine(RocketData.Error + " " + "string");
+
+                        if (RocketData.Error.Contains("ERROR"))
+                        {
+                            RocketData.WhatDoing = RocketData.Error + " " + "Trade List" + " " + i;
+                            Task.Run(Write).Wait();
+                        }
+                        else
+                        {
+                            RocketData.WhatDoing = $"Trade {i} Bumped!";
+                            Task.Run(Write).Wait();
+                        }
+
+                        closeup.Click();
+
+                        i++;
+
+                        Thread.Sleep(3000);
+                    }
+                    RocketData.WhatDoing = $"Trade Bump for {trades.Count} Done";
+
+                    Task.Run(Write).Wait();
+
+                    Thread.Sleep(1000);
+
+                    RocketData.WhatDoing = "Running After Timer Over!";
+
+                    Task.Run(Write);
+                }
 
                 driver.Quit();
+                RocketData.OnOff = "Not Running";
+                RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
 
-                return;
-            }
-            else
-            {
-                IWebElement notificationperms = driver.FindElement(By.ClassName("rlg-notificationperms__decline"));
-                notificationperms.Click();
-                RocketData.WhatDoing = "Disable Notification";
-
-                Task.Run(Write).Wait();
-
-                Thread.Sleep(1000);
-
-                var trades = driver.FindElementsByClassName("rlg-trade__bump");
-                var closeup = driver.FindElementByXPath("/html/body/div[2]/div/span");
-                IWebElement closeuptext = driver.FindElementByClassName("rlg-site-popup__content");
-
-                int i = 1;
-                foreach (var trade in trades)
-                {
-                    trade.Click();
-
-                    Thread.Sleep(2000);
-
-                    RocketData.Error = closeuptext.Text;
-
-                    Debug.WriteLine(closeuptext.Text);
-                    Debug.WriteLine(RocketData.Error + " " + "string");
-
-                    if (RocketData.Error.Contains("ERROR"))
-                    {
-                        RocketData.WhatDoing = RocketData.Error + " " + "Trade List" + " " + i;
-                        Task.Run(Write).Wait();
-                    }
-                    else
-                    {
-                        RocketData.WhatDoing = $"Trade {i} Bumped!";
-                        Task.Run(Write).Wait();
-                    }
-
-                    closeup.Click();
-
-                    i++;
-
-                    Thread.Sleep(3000);
-                }
-                RocketData.WhatDoing = $"Trade Bump for {trades.Count} Done";
-
-                Task.Run(Write).Wait();
-
-                Thread.Sleep(1000);
-
-                RocketData.WhatDoing = "Running After Timer Over!";
+                var color = (Color)ColorConverter.ConvertFromString("#FFFFFF");
+                RocketData.Color = color;
 
                 Task.Run(Write);
+
+                var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
+                RocketData.Color = color2;
+
+                RocketData.Done = "Done";
             }
-
-            driver.Quit();
-            RocketData.OnOff = "Not Running";
-            RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
-
-            var color = (Color)ColorConverter.ConvertFromString("#FFFFFF");
-            RocketData.Color = color;
-
-            Task.Run(Write);
-
-            var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
-            RocketData.Color = color2;
-
-            RocketData.Done = "Done";
+            catch
+            {
+                ChromeDriverQuit();
+            }
         }
 
         private void ChromeDriverQuit()
         {
-            RocketData.WhatDoing = "Stopping...";
+            RocketData.WhatDoing = "Stopping Please Wait...";
 
             driver.Quit();
 
