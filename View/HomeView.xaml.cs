@@ -4,8 +4,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using RocketLeagueGarage.FilesManager;
 using RocketLeagueGarage.Helper;
-using RocketLeagueGarage.MVVM.Model;
-using RocketLeagueGarage.MVVM.ViewModel;
+using RocketLeagueGarage.Model;
+using RocketLeagueGarage.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,7 +21,7 @@ using System.Windows.Media;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 
-namespace RocketLeagueGarage.MVVM.View
+namespace RocketLeagueGarage.View
 {
     /// <summary>
     /// Interaction logic for HomeView.xaml

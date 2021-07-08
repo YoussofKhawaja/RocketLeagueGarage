@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RocketLeagueGarage.MVVM.Model
+namespace RocketLeagueGarage.Model
 {
     [Serializable]
     public class AccountDataModel

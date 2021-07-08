@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace RocketLeagueGarage.MVVM.View
+namespace RocketLeagueGarage.View
 {
     /// <summary>
     /// Interaction logic for HistoryLogs.xaml

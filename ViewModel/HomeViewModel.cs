@@ -1,6 +1,6 @@
 ﻿using RocketLeagueGarage.Core;
 
-namespace RocketLeagueGarage.MVVM.ViewModel
+namespace RocketLeagueGarage.ViewModel
 {
     public class HomeViewModel : ObservableObject
     {

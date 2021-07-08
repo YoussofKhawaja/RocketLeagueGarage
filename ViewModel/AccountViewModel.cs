@@ -1,8 +1,8 @@
 ﻿using RocketLeagueGarage.Core;
 using RocketLeagueGarage.FilesManager;
-using RocketLeagueGarage.MVVM.Model;
+using RocketLeagueGarage.Model;
 
-namespace RocketLeagueGarage.MVVM.ViewModel
+namespace RocketLeagueGarage.ViewModel
 {
     public class AccountViewModel : ObservableObject
     {

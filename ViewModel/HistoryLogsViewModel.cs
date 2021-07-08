@@ -1,12 +1,12 @@
 ﻿using RocketLeagueGarage.Core;
 using RocketLeagueGarage.FilesManager;
-using RocketLeagueGarage.MVVM.Model;
+using RocketLeagueGarage.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RocketLeagueGarage.MVVM.ViewModel
+namespace RocketLeagueGarage.ViewModel
 {
     public class HistoryLogsViewModel : ObservableObject
     {

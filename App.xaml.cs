@@ -1,4 +1,4 @@
-﻿using RocketLeagueGarage.MVVM.Model;
+﻿using RocketLeagueGarage.Model;
 using System.Windows;
 using System.Windows.Media;
 

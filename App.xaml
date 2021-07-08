@@ -3,8 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:RocketLeagueGarage"
-    xmlns:view="clr-namespace:RocketLeagueGarage.MVVM.View"
-    xmlns:viewModel="clr-namespace:RocketLeagueGarage.MVVM.ViewModel"
+    xmlns:view="clr-namespace:RocketLeagueGarage.View"
+    xmlns:viewModel="clr-namespace:RocketLeagueGarage.ViewModel"
     Startup="ApplicationStart">
     <Application.Resources>
         <ResourceDictionary>

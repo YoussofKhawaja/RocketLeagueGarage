@@ -1,4 +1,4 @@
-﻿namespace RocketLeagueGarage.MVVM.Model
+﻿namespace RocketLeagueGarage.Model
 {
     public class History
     {

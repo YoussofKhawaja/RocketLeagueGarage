@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace RocketLeagueGarage.MVVM.View
+namespace RocketLeagueGarage.View
 {
     /// <summary>
     /// Interaction logic for Account.xaml

@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Media;
 
-namespace RocketLeagueGarage.MVVM.Model
+namespace RocketLeagueGarage.Model
 {
     [Serializable]
     public class RocketData
