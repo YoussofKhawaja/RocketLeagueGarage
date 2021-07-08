@@ -287,7 +287,7 @@ namespace RocketLeagueGarage.MVVM.View
 
                 var trades = driver.FindElementsByClassName("rlg-trade__bump");
                 var closeup = driver.FindElementByXPath("/html/body/div[2]/div/span");
-                var closeuptext = driver.FindElementByClassName("rlg-site-popup__content");
+                IWebElement closeuptext = driver.FindElementByClassName("rlg-site-popup__content");
 
                 int i = 1;
                 foreach (var trade in trades)
@@ -298,7 +298,8 @@ namespace RocketLeagueGarage.MVVM.View
 
                     RocketData.Error = closeuptext.Text;
 
-                    Debug.WriteLine(RocketData.Error);
+                    Debug.WriteLine(closeuptext.Text);
+                    Debug.WriteLine(RocketData.Error + " " + "string");
 
                     if (RocketData.Error.Contains("ERROR"))
                     {
@@ -314,6 +315,8 @@ namespace RocketLeagueGarage.MVVM.View
                     closeup.Click();
 
                     i++;
+
+                    Thread.Sleep(3000);
                 }
                 RocketData.WhatDoing = $"Trade Bump for {trades.Count} Done";
 
