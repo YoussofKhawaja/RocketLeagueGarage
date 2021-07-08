@@ -21,7 +21,6 @@ namespace RocketLeagueGarage
         private void ExitClicked(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
-            Environment.Exit(0);
         }
 
         //minimize app

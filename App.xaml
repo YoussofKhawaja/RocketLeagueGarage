@@ -5,7 +5,9 @@
     xmlns:local="clr-namespace:RocketLeagueGarage"
     xmlns:view="clr-namespace:RocketLeagueGarage.View"
     xmlns:viewModel="clr-namespace:RocketLeagueGarage.ViewModel"
+    Exit="Application_Exit"
     Startup="ApplicationStart">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

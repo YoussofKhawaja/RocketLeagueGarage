@@ -1,4 +1,5 @@
 ﻿using RocketLeagueGarage.Model;
+using System;
 using System.Windows;
 using System.Windows.Media;
 
@@ -26,6 +27,11 @@ namespace RocketLeagueGarage
             RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
             var color = (Color)ColorConverter.ConvertFromString("#FFFFFF");
             RocketData.Color = color;
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }
