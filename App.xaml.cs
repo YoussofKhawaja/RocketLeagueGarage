@@ -1,12 +1,6 @@
 ﻿using RocketLeagueGarage.MVVM.Model;
-using RocketLeagueGarage.MVVM.View;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
-using WebDriverManager;
-using WebDriverManager.DriverConfigs.Impl;
 
 namespace RocketLeagueGarage
 {

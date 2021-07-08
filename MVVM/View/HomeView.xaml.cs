@@ -20,7 +20,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
-using static RocketLeagueGarage.MVVM.Model.History;
 
 namespace RocketLeagueGarage.MVVM.View
 {

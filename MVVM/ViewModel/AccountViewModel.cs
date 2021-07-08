@@ -1,7 +1,6 @@
 ﻿using RocketLeagueGarage.Core;
 using RocketLeagueGarage.FilesManager;
 using RocketLeagueGarage.MVVM.Model;
-using System.Windows.Input;
 
 namespace RocketLeagueGarage.MVVM.ViewModel
 {

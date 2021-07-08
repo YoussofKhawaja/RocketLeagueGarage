@@ -1,11 +1,6 @@
 ﻿using RocketLeagueGarage.FilesManager;
-using RocketLeagueGarage.MVVM.Model;
-using RocketLeagueGarage.MVVM.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
 
