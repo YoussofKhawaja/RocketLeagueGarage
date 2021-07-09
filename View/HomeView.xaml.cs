@@ -104,22 +104,26 @@ namespace RocketLeagueGarage.View
             }
             else
             {
-                Debug.WriteLine("normal");
-                RocketData.SettingUp = "SettingUp";
-
-                await Task.Run(ChromeDriver);
-
-                RocketData.SettingUp = "NotSettingUp";
-                RocketData.IsRunning = "Running";
-
-                await Task.Run(Element);
-
-                if (RocketData.Done == "Done")
+                user = Save.ReadFromXmlFile<AccountDataModel>("Data", "Account");
+                if (user.Name != null && user.Email != null && user.Password != null)
                 {
-                    timer.Start();
-                }
+                    Debug.WriteLine("normal");
+                    RocketData.SettingUp = "SettingUp";
 
-                RocketData.IsRunning = "NotRunning";
+                    await Task.Run(ChromeDriver);
+
+                    RocketData.SettingUp = "NotSettingUp";
+                    RocketData.IsRunning = "Running";
+
+                    await Task.Run(Element);
+
+                    if (RocketData.Done == "Done")
+                    {
+                        timer.Start();
+                    }
+
+                    RocketData.IsRunning = "NotRunning";
+                }
             }
         }
 
@@ -206,7 +210,7 @@ namespace RocketLeagueGarage.View
 
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("start-maximized");
-            options.AddArgument("headless");
+            //options.AddArgument("headless");
 
             ChromeDriverService driverService = ChromeDriverService.CreateDefaultService();
             driverService.HideCommandPromptWindow = true;
@@ -305,7 +309,6 @@ namespace RocketLeagueGarage.View
                         RocketData.Error = closeuptext.Text;
 
                         Debug.WriteLine(closeuptext.Text);
-                        Debug.WriteLine(RocketData.Error + " " + "string");
 
                         if (RocketData.Error.Contains("ERROR"))
                         {
