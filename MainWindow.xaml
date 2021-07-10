@@ -8,8 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:notifications="clr-namespace:Notifications.Wpf.Core.Controls;assembly=Notifications.Wpf.Core"
     xmlns:viewModel="clr-namespace:RocketLeagueGarage.ViewModel"
-    Width="1100"
-    Height="740"
+    MaxWidth="1065"
+    MaxHeight="719.5"
     AllowsTransparency="True"
     Background="Transparent"
     ResizeMode="NoResize"
@@ -97,6 +97,7 @@
                     Foreground="White"
                     Style="{StaticResource MenuButtonTheme}" />
             </StackPanel>
+
             <ContentControl
                 Grid.Row="1"
                 Grid.Column="1"

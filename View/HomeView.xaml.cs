@@ -62,6 +62,7 @@ namespace RocketLeagueGarage.View
 
         private async void onoffbutton_Click(object sender, RoutedEventArgs e)
         {
+            user = Save.ReadFromXmlFile<AccountDataModel>("Data", "Account");
             if (RocketData.IsRunning == "Running")
             {
                 Debug.WriteLine("here");
@@ -102,9 +103,17 @@ namespace RocketLeagueGarage.View
                     timer.Start();
                 }
             }
+            else if (!user.Email.Contains("@"))
+            {
+                var notificationManager = new NotificationManager(NotificationPosition.TopRight);
+
+                await notificationManager.ShowAsync(
+                new NotificationContent { Title = "Error", Message = "Please inclued @ in the email", Type = NotificationType.Error },
+
+                areaName: "WindowArea");
+            }
             else
             {
-                user = Save.ReadFromXmlFile<AccountDataModel>("Data", "Account");
                 if (user.Name != null && user.Email != null && user.Password != null)
                 {
                     Debug.WriteLine("normal");
@@ -281,7 +290,7 @@ namespace RocketLeagueGarage.View
 
                     Task.Run(Write).Wait();
 
-                    driver.Quit();
+                    ChromeDriverQuit();
 
                     return;
                 }

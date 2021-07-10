@@ -38,8 +38,6 @@
                     CornerRadius="15">
                     <TextBox
                         Margin="15,0"
-                        HorizontalContentAlignment="Left"
-                        VerticalContentAlignment="Center"
                         Background="Transparent"
                         BorderThickness="0"
                         CaretBrush="White"
@@ -64,12 +62,9 @@
                     CornerRadius="15">
                     <TextBox
                         Margin="15,0"
-                        HorizontalContentAlignment="Left"
-                        VerticalContentAlignment="Center"
                         Background="Transparent"
                         BorderThickness="0"
                         CaretBrush="White"
-                        FontFamily="Font/#Poppins"
                         FontSize="20"
                         Foreground="White"
                         Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -91,8 +86,6 @@
                     CornerRadius="15">
                     <TextBox
                         Margin="15,0"
-                        HorizontalContentAlignment="Left"
-                        VerticalContentAlignment="Center"
                         Background="Transparent"
                         BorderThickness="0"
                         CaretBrush="White"
