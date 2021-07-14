@@ -1,4 +1,5 @@
 ﻿using RocketLeagueGarage.Model;
+using RocketLeagueGarage.View;
 using System;
 using System.Windows;
 using System.Windows.Media;
@@ -31,6 +32,10 @@ namespace RocketLeagueGarage
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
+            if (HomeView.driver != null)
+            {
+                HomeView.driver.Quit();
+            }
             Environment.Exit(0);
         }
     }

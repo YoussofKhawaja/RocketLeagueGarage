@@ -9,6 +9,7 @@ using RocketLeagueGarage.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -196,6 +197,7 @@ namespace RocketLeagueGarage.View
 
                 statusTime.Elapsed += new System.Timers.ElapsedEventHandler(TextUpdate);
                 statusTime.Enabled = true;
+                statusTime.Interval = 1;
             }
             catch
             {
@@ -248,7 +250,7 @@ namespace RocketLeagueGarage.View
 
                 user = Save.ReadFromXmlFile<AccountDataModel>("Data", "Account");
 
-                RocketData.WhatDoing = "Setting Up ChromeDrive";
+                RocketData.WhatDoing = "Setting Up ChromeDriver";
 
                 Task.Run(Write).Wait();
 
@@ -374,7 +376,8 @@ namespace RocketLeagueGarage.View
                         {
                             RocketData.WhatDoing = $"Trade {i} Bumped!";
                             Task.Run(Write).Wait();
-                        }                      
+                        }
+
                         closeup.Click();
 
                         i++;
