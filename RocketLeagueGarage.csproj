@@ -33,4 +33,14 @@
 		<PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
 		<PackageReference Include="WebDriverManager" Version="2.11.1" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <_DeploymentManifestIconFile Remove="RocketLeagueGarage.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="RocketLeagueGarage.ico">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
 </Project>
