@@ -374,9 +374,7 @@ namespace RocketLeagueGarage.View
                         {
                             RocketData.WhatDoing = $"Trade {i} Bumped!";
                             Task.Run(Write).Wait();
-                        }
-                        Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
-                        ss.SaveAsFile($"Screenshot{i}");
+                        }                      
                         closeup.Click();
 
                         i++;
