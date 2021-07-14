@@ -40,7 +40,7 @@
 
 	<ItemGroup>
 	  <EmbeddedResource Include="RocketLeagueGarage.ico">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	</ItemGroup>
 </Project>
