@@ -8,6 +8,7 @@ Rocket League Garage is automation that bump all your trades and also can bump t
 # ToDo
 - Custom CountDown.
 - Live Share Chrome screen in app.
+- Discord integration to start or stop software.
 
 # Known Bugs
 If you have old chrome version on your computer, the Launcher may not work if Chrome Config didn't find an appropriate vwersion of chrome same as you have.
