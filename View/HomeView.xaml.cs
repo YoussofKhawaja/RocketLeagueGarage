@@ -165,7 +165,7 @@ namespace RocketLeagueGarage.View
             try
             {
                 System.Timers.Timer statusTime = new System.Timers.Timer();
-                statusTime.Interval = 1;
+
                 statusTime.Elapsed += new System.Timers.ElapsedEventHandler(TextUpdate);
                 statusTime.Enabled = true;
             }

@@ -24,12 +24,7 @@
 	  <None Remove=".gitignore" />
 	  <None Remove="LICENSE" />
 	  <None Remove="RocketLeagueGarage.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Include="RocketLeagueGarage.ico">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </EmbeddedResource>
+	  <None Remove="RocketLeagueGarage_TemporaryKey.pfx" />
 	</ItemGroup>
 
 	<ItemGroup>
