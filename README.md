@@ -2,6 +2,7 @@
 Rocket League Garage is automation that bump all your trades and also can bump them every 20 minutes.
 
 # Setup
+- .NetCore 5.0 downloaded on your computer.
 - add your account information in the Account category.
 
 # ToDo
@@ -9,7 +10,7 @@ Rocket League Garage is automation that bump all your trades and also can bump t
 - Live Share Chrome screen in app.
 
 # Known Bugs
-If you have old chrome version on your computer, the Launcher may not work if Chrome Config didn't find an appropriate vwersion of chrome same as you have
+If you have old chrome version on your computer, the Launcher may not work if Chrome Config didn't find an appropriate vwersion of chrome same as you have.
 
 # Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
