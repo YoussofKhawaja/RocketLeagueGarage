@@ -20,6 +20,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
+using WebDriverManager.Helpers;
 
 namespace RocketLeagueGarage.View
 {
@@ -62,61 +63,35 @@ namespace RocketLeagueGarage.View
 
         private async void onoffbutton_Click(object sender, RoutedEventArgs e)
         {
-            user = Save.ReadFromXmlFile<AccountDataModel>("Data", "Account");
-            if (RocketData.IsRunning == "Running")
+            try
             {
-                Debug.WriteLine("here");
-                await Task.Run(ChromeDriverQuit);
-
-                timer.Stop();
-                timer.Reset();
-
-                RocketData.IsRunning = "NotRunning";
-            }
-            else if (RocketData.SettingUp == "SettingUp")
-            {
-                var notificationManager = new NotificationManager(NotificationPosition.TopRight);
-
-                await notificationManager.ShowAsync(
-                new NotificationContent { Title = "Error", Message = "Updating", Type = NotificationType.Error },
-
-                areaName: "WindowArea");
-            }
-            else if (timer.IsRunnign)
-            {
-                timer.Stop();
-                timer.Reset();
-
-                Debug.WriteLine("timerhere");
-
-                RocketData.SettingUp = "SettingUp";
-
-                await Task.Run(ChromeDriver);
-
-                RocketData.SettingUp = "NotSettingUp";
-                RocketData.IsRunning = "Running";
-
-                await Task.Run(Element);
-
-                if (RocketData.Done == "Done")
+                user = Save.ReadFromXmlFile<AccountDataModel>("Data", "Account");
+                if (RocketData.IsRunning == "Running")
                 {
-                    timer.Start();
+                    Debug.WriteLine("here");
+                    await Task.Run(ChromeDriverQuit);
+
+                    timer.Stop();
+                    timer.Reset();
+
+                    RocketData.IsRunning = "NotRunning";
                 }
-            }
-            else if (!user.Email.Contains("@"))
-            {
-                var notificationManager = new NotificationManager(NotificationPosition.TopRight);
-
-                await notificationManager.ShowAsync(
-                new NotificationContent { Title = "Error", Message = "Please inclued @ in the email", Type = NotificationType.Error },
-
-                areaName: "WindowArea");
-            }
-            else
-            {
-                if (user.Name != null && user.Email != null && user.Password != null)
+                else if (RocketData.SettingUp == "SettingUp")
                 {
-                    Debug.WriteLine("normal");
+                    var notificationManager = new NotificationManager(NotificationPosition.TopRight);
+
+                    await notificationManager.ShowAsync(
+                    new NotificationContent { Title = "Error", Message = "Updating", Type = NotificationType.Error },
+
+                    areaName: "WindowArea");
+                }
+                else if (timer.IsRunnign)
+                {
+                    timer.Stop();
+                    timer.Reset();
+
+                    Debug.WriteLine("timerhere");
+
                     RocketData.SettingUp = "SettingUp";
 
                     await Task.Run(ChromeDriver);
@@ -130,16 +105,63 @@ namespace RocketLeagueGarage.View
                     {
                         timer.Start();
                     }
-
-                    RocketData.IsRunning = "NotRunning";
                 }
+                else if (!user.Email.Contains("@"))
+                {
+                    var notificationManager = new NotificationManager(NotificationPosition.TopRight);
+
+                    await notificationManager.ShowAsync(
+                    new NotificationContent { Title = $"Error", Message = $"Please inclued an '@' in the email address. {user.Email} is missing an '@'", Type = NotificationType.Error },
+
+                    areaName: "WindowArea");
+                }
+                else if (user.Email.Last().ToString() == "@")
+                {
+                    var notificationManager = new NotificationManager(NotificationPosition.TopRight);
+
+                    await notificationManager.ShowAsync(
+                    new NotificationContent { Title = "Error", Message = $"Please enter a part of following '@' {user.Email} is incomplete.", Type = NotificationType.Error },
+
+                    areaName: "WindowArea");
+                }
+                else
+                {
+                    if (user.Name != null && user.Email != null && user.Password != null)
+                    {
+                        Debug.WriteLine("normal");
+                        RocketData.SettingUp = "SettingUp";
+
+                        await Task.Run(ChromeDriver);
+
+                        RocketData.SettingUp = "NotSettingUp";
+                        RocketData.IsRunning = "Running";
+
+                        await Task.Run(Element);
+
+                        if (RocketData.Done == "Done")
+                        {
+                            timer.Start();
+                        }
+
+                        RocketData.IsRunning = "NotRunning";
+                    }
+                }
+            }
+            catch
+            {
             }
         }
 
         private void TextUpdate(object sender, ElapsedEventArgs e)
         {
-            TextUpdate();
-            TimerDone();
+            try
+            {
+                TextUpdate();
+                TimerDone();
+            }
+            catch
+            {
+            }
         }
 
         #endregion Buttons
@@ -148,14 +170,20 @@ namespace RocketLeagueGarage.View
 
         private void TimerDone()
         {
-            if (timer.TimeLeftMsStr == "00:00.000")
+            try
             {
-                this.Dispatcher.Invoke(() =>
+                if (timer.TimeLeftMsStr == "00:00.000")
                 {
-                    onoffbutton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
-                });
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        onoffbutton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+                    });
 
-                timer.Reset();
+                    timer.Reset();
+                }
+            }
+            catch
+            {
             }
         }
 
@@ -176,68 +204,86 @@ namespace RocketLeagueGarage.View
 
         public void Write()
         {
-            if (viewmodel.History != null && viewmodel.History.Count != 0)
-                if (RocketData.WhatDoing == viewmodel.History[viewmodel.History.Count - 1].name)
-                    return;
+            try
+            {
+                if (viewmodel.History != null && viewmodel.History.Count != 0)
+                    if (RocketData.WhatDoing == viewmodel.History[viewmodel.History.Count - 1].name)
+                        return;
 
-            viewmodel.AddItems(new List<History>() { new History() { name = RocketData.WhatDoing, DateTime = DateTime.Now.ToString(), test = DateTime.Now.ToString("yyyy/MM/dd") } });
+                viewmodel.AddItems(new List<History>() { new History() { name = RocketData.WhatDoing, DateTime = DateTime.Now.ToString(), test = DateTime.Now.ToString("yyyy/MM/dd") } });
 
-            Save.WriteToXmlFile<List<History>>(viewmodel.History.ToList(), "Data", "history");
+                Save.WriteToXmlFile<List<History>>(viewmodel.History.ToList(), "Data", "history");
+            }
+            catch
+            {
+            }
         }
 
         private void TextUpdate()
         {
-            this.Dispatcher.Invoke(() =>
+            try
             {
-                whatdoing.Text = RocketData.WhatDoing;
-                onoff.Content = RocketData.OnOff;
-                timelabel.Text = RocketData.TimeLabel;
-                icon.Kind = RocketData.Kind;
-                buttonplay.Color = RocketData.Color;
-            });
+                this.Dispatcher.Invoke(() =>
+                {
+                    whatdoing.Text = RocketData.WhatDoing;
+                    onoff.Content = RocketData.OnOff;
+                    timelabel.Text = RocketData.TimeLabel;
+                    icon.Kind = RocketData.Kind;
+                    buttonplay.Color = RocketData.Color;
+                });
+            }
+            catch
+            {
+            }
         }
 
         private void ChromeDriver()
         {
-            RocketData.OnOff = "Updating";
-            RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Update;
-
-            Task.Run(Write).Wait();
-
-            user = Save.ReadFromXmlFile<AccountDataModel>("Data", "Account");
-
-            RocketData.WhatDoing = "Setting Up ChromeDrive";
-
-            Task.Run(Write).Wait();
-
-            Thread.Sleep(1000);
-
-            new DriverManager().SetUpDriver(new ChromeConfig());
-            RocketData.WhatDoing = "Setting Up Done, Starting Up ChromeDriver";
-
-            Task.Run(Write).Wait();
-
-            ChromeOptions options = new ChromeOptions();
-            options.AddArgument("start-maximized");
-            //options.AddArgument("headless");
-
-            ChromeDriverService driverService = ChromeDriverService.CreateDefaultService();
-            driverService.HideCommandPromptWindow = true;
-
-            driver = new ChromeDriver(driverService, options)
+            try
             {
-                Url = $"https://rocket-league.com/trades/{user.Name}"
-            };
+                RocketData.OnOff = "Updating";
+                RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Update;
 
-            var color = (Color)ColorConverter.ConvertFromString("#FF0000");
-            RocketData.Color = color;
+                Task.Run(Write).Wait();
 
-            RocketData.WhatDoing = "Started ChromeDriver";
-            RocketData.OnOff = "Running";
-            RocketData.TimeLabel = "Waiting To Finish This Task";
-            RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop;
+                user = Save.ReadFromXmlFile<AccountDataModel>("Data", "Account");
 
-            Task.Run(Write);
+                RocketData.WhatDoing = "Setting Up ChromeDrive";
+
+                Task.Run(Write).Wait();
+
+                Thread.Sleep(1000);
+
+                new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
+                RocketData.WhatDoing = "Setting Up Done, Starting Up ChromeDriver";
+
+                Task.Run(Write).Wait();
+
+                ChromeOptions options = new ChromeOptions();
+                options.AddArgument("start-maximized");
+                options.AddArgument("headless");
+
+                ChromeDriverService driverService = ChromeDriverService.CreateDefaultService();
+                driverService.HideCommandPromptWindow = true;
+
+                driver = new ChromeDriver(driverService, options)
+                {
+                    Url = $"https://rocket-league.com/trades/{user.Name}"
+                };
+
+                var color = (Color)ColorConverter.ConvertFromString("#FF0000");
+                RocketData.Color = color;
+
+                RocketData.WhatDoing = "Started ChromeDriver";
+                RocketData.OnOff = "Running";
+                RocketData.TimeLabel = "Waiting To Finish This Task";
+                RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop;
+
+                Task.Run(Write);
+            }
+            catch
+            {
+            }
         }
 
         private void Element()
@@ -329,7 +375,8 @@ namespace RocketLeagueGarage.View
                             RocketData.WhatDoing = $"Trade {i} Bumped!";
                             Task.Run(Write).Wait();
                         }
-
+                        Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
+                        ss.SaveAsFile($"Screenshot{i}");
                         closeup.Click();
 
                         i++;
@@ -369,33 +416,45 @@ namespace RocketLeagueGarage.View
 
         private void ChromeDriverQuit()
         {
-            RocketData.WhatDoing = "Stopping Please Wait...";
+            try
+            {
+                RocketData.WhatDoing = "Stopping Please Wait...";
 
-            driver.Quit();
+                driver.Quit();
 
-            var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
-            RocketData.Color = color2;
+                var color2 = (Color)ColorConverter.ConvertFromString("#ffffff ");
+                RocketData.Color = color2;
 
-            RocketData.OnOff = "Not Running";
-            RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
-            RocketData.WhatDoing = "Stopped";
+                RocketData.OnOff = "Not Running";
+                RocketData.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play;
+                RocketData.WhatDoing = "Stopped";
 
-            Task.Run(Write);
+                Task.Run(Write);
+            }
+            catch
+            {
+            }
         }
 
         private void Timer()
         {
-            //set to 20 mins
-            timer.SetTime(20, 0);
-
-            //update label text
-            timer.TimeChanged += () =>
+            try
             {
-                RocketData.TimeLabel = timer.TimeLeftMsStr + " " + "Minute";
-            };
+                //set to 20 mins
+                timer.SetTime(20, 0);
 
-            //timer step. By default is 1 second
-            timer.StepMs = 77;
+                //update label text
+                timer.TimeChanged += () =>
+                {
+                    RocketData.TimeLabel = timer.TimeLeftMsStr + " " + "Minute";
+                };
+
+                //timer step. By default is 1 second
+                timer.StepMs = 77;
+            }
+            catch
+            {
+            }
         }
 
         #endregion void classes
