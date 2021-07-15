@@ -9,7 +9,6 @@ using RocketLeagueGarage.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing.Imaging;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,11 +46,13 @@ namespace RocketLeagueGarage.View
 
         #region Offset
 
+        //mouse enter on the on and off button
         private void onoffbutton_MouseEnter(object sender, MouseEventArgs e)
         {
             buttonplay.Offset = 0.2;
         }
 
+        //mouse leave on the on and off button
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
             buttonplay.Offset = 0.0;
@@ -62,6 +63,7 @@ namespace RocketLeagueGarage.View
 
         #region Buttons
 
+        //Start and Stop Launcher
         private async void onoffbutton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -169,6 +171,7 @@ namespace RocketLeagueGarage.View
 
         #region void classes
 
+        //On CountDown done
         private void TimerDone()
         {
             try
@@ -204,6 +207,7 @@ namespace RocketLeagueGarage.View
             }
         }
 
+        //History Logs get writted
         public void Write()
         {
             try
@@ -221,6 +225,7 @@ namespace RocketLeagueGarage.View
             }
         }
 
+        //Text
         private void TextUpdate()
         {
             try
@@ -239,6 +244,7 @@ namespace RocketLeagueGarage.View
             }
         }
 
+        //Config of Chrome Driver
         private void ChromeDriver()
         {
             try
@@ -288,6 +294,7 @@ namespace RocketLeagueGarage.View
             }
         }
 
+        //all elements where in use
         private void Element()
         {
             try
@@ -415,6 +422,7 @@ namespace RocketLeagueGarage.View
             }
         }
 
+        //ChromeDriver quit
         private void ChromeDriverQuit()
         {
             try
@@ -437,6 +445,7 @@ namespace RocketLeagueGarage.View
             }
         }
 
+        //CountDown system
         private void Timer()
         {
             try

@@ -20,6 +20,7 @@ namespace RocketLeagueGarage
             check();
         }
 
+        //text and colors
         private void check()
         {
             RocketData.WhatDoing = "Doing Nothing, Not Running";
@@ -30,6 +31,7 @@ namespace RocketLeagueGarage
             RocketData.Color = color;
         }
 
+        //Application Exit, it close all the Environment
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             if (HomeView.driver != null)

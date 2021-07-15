@@ -17,6 +17,7 @@ namespace RocketLeagueGarage.View
             Group();
         }
 
+        //group each list to its date
         private void Group()
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listviewgroup.ItemsSource);
@@ -24,6 +25,7 @@ namespace RocketLeagueGarage.View
             view.GroupDescriptions.Add(groupDescription);
         }
 
+        //clear all saved history logs
         private void clear_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             Debug.WriteLine("here");
