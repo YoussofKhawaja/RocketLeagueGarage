@@ -11,6 +11,10 @@ Please support me by Leaving a star.
 
 ![RocketLeagueGarage](RocketLeagueGarageImage.jpg)
 
+# Build or istall
+You can download open source code to build it
+or download the release from here [RLG](https://github.com/YoussofKhawaja/RocketLeagueGarage/releases)
+
 # ToDo
 - Custom CountDown.
 - Live Share Chrome screen in app.
