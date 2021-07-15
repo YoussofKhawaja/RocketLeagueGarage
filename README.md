@@ -28,7 +28,7 @@ or
 - Discord integration to start or stop software.
 - Add specfic trades.
 
-# Known Bugs
+# Known Bug
 - If you have old chrome version on your computer, the Launcher may not work if Chrome Config didn't find an appropriate version of chrome same as you have.
 
 to fix that just update your chrome from here (chrome://settings/help).
