@@ -26,6 +26,7 @@ or
 - Custom CountDown.
 - Live Share Chrome screen in app.
 - Discord integration to start or stop software.
+- Add specfic trades.
 
 # Known Bugs
 - If you have old chrome version on your computer, the Launcher may not work if Chrome Config didn't find an appropriate version of chrome same as you have.
