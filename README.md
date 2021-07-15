@@ -4,7 +4,7 @@ Rocket League Garage is automation that bump all your trades and also can bump t
 Please support me by Leaving a star.
 
 # Setup
-- .NetCore 5.0 downloaded on your computer.
+- .NetCore 5.0 downloaded on your computer [.NetCore 5.0](https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-desktop-5.0.0-windows-x64-installer).
 - add your account information in the Account category.
 
 # ToDo
