@@ -30,7 +30,7 @@ or
 # Known Bugs
 - If you have old chrome version on your computer, the Launcher may not work if Chrome Config didn't find an appropriate version of chrome same as you have.
 
-to fix that just upgrade your chrome.
+to fix that just update your chrome.
 
 # Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
