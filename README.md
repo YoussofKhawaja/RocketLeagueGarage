@@ -13,7 +13,7 @@ Please support me by Leaving a star.
 
 # Build or install
 - You can download open source code to build it.
-- 
+
 or
 
 - download the release from here [RLG](https://github.com/YoussofKhawaja/RocketLeagueGarage/releases)
