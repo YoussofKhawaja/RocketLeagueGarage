@@ -11,6 +11,8 @@ Please support me by Leaving a star.
 ![RocketLeagueGarage](RocketLeagueGarageImage.jpg)
 
 # Video
+[![Watch the video](https://img.youtube.com/vi/UJOP9K11-2Y/maxresdefault.jpg)](https://youtu.be/UJOP9K11-2Y)
+
 https://youtu.be/UJOP9K11-2Y
 
 # Build or install
