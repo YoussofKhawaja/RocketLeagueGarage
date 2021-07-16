@@ -1,5 +1,6 @@
 # RocketLeagueGarage
 Rocket League Garage is automation that bump all your trades and also can bump them every 20 minutes.
+(for educational purposes only)
 
 Please support me by Leaving a star.
 
