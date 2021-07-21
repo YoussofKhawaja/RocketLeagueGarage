@@ -12,7 +12,7 @@ Please support me by Leaving a star.
 ![RocketLeagueGarage](RocketLeagueGarageImage.jpg)
 
 # Video
-https://youtu.be/UJOP9K11-2Y
+[![Watch the video](https://img.youtube.com/vi/UJOP9K11-2Y/maxresdefault.jpg)](https://youtu.be/UJOP9K11-2Y)
 
 # Build or install
 - You can download open source code to build it.
