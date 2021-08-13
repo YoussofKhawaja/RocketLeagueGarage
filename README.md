@@ -9,7 +9,7 @@ Please support me by Leaving a star.
 - add your account information in the Account category.
 
 # Images
-![RocketLeagueGarage](RocketLeagueGarageImage.jpg)
+![RocketLeagueGarage](RocketLeagueGarage.jpg)
 
 # Video
 [![Watch the video](https://img.youtube.com/vi/UJOP9K11-2Y/maxresdefault.jpg)](https://youtu.be/UJOP9K11-2Y)
